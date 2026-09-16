@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "seed": "emdash seed seed/seed.json"
+    "seed": "emdash seed seed/seed.json",
+    "verify-menu": "node scripts/verify-menu-links.mjs"
   },
   "dependencies": {
     "@astrojs/node": "^11.1.5",
