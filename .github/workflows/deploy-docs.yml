@@ -20,16 +20,20 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: docs-site
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      # Root deps must be installed even though this job only builds docs-site:
+      # Vite's tsconfig resolution can walk up past docs-site/tsconfig.json to
+      # the repo-root tsconfig.json (extends astro/tsconfigs/base), which
+      # fails to resolve if root node_modules isn't present.
       - run: npm ci
+      - run: npm ci
+        working-directory: docs-site
       - run: npm run build
+        working-directory: docs-site
       - uses: actions/upload-pages-artifact@v3
         with:
           path: docs-site/dist
