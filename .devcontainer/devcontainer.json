@@ -1,0 +1,6 @@
+{
+  "name": "vvf-astro",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "forwardPorts": [4321, 6006],
+  "postCreateCommand": "npm install && npx playwright install --with-deps && cd docs-site && npm install"
+}
