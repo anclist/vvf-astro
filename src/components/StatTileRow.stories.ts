@@ -9,7 +9,7 @@ const stats: Stat[] = [
 ]
 
 export default {
-  title: 'Components/StatTileRow',
+  title: 'Molecules/StatTileRow',
   component: StatTileRow,
 }
 

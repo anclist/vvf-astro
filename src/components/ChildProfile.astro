@@ -1,5 +1,6 @@
 ---
 import type { ChildItem } from '../lib/content/types'
+import Card from './Card.astro'
 
 export interface Props {
   child: ChildItem
@@ -20,9 +21,9 @@ const birthdayLabel = child.birthday
 
   <div class="mt-6 grid md:grid-cols-[1fr_1fr_1.2fr] gap-6">
     <div class="md:col-span-2 grid grid-cols-2 gap-4">
-      <div class="col-span-2 bg-pastel-blue rounded-card p-6">
+      <Card tone="blue" shadow={false} class="col-span-2 p-6">
         <p class="font-display text-xl text-brand-navy">{child.displayName}</p>
-      </div>
+      </Card>
       <div class="col-span-2 h-64 rounded-card bg-gray-200 overflow-hidden">
         {
           child.imageUrl ? (
@@ -32,28 +33,28 @@ const birthdayLabel = child.birthday
           )
         }
       </div>
-      <div class="bg-pastel-pink rounded-card p-5">
+      <Card tone="pink" shadow={false} class="p-5">
         <p class="font-semibold text-brand-navy">Age: {child.age} years old</p>
-      </div>
+      </Card>
       {
         birthdayLabel && (
-          <div class="bg-pastel-yellow rounded-card p-5">
+          <Card tone="yellow" shadow={false} class="p-5">
             <p class="font-semibold text-brand-navy">Birthday: {birthdayLabel}</p>
-          </div>
+          </Card>
         )
       }
       {
         child.gender && (
-          <div class="bg-pastel-blue rounded-card p-5">
+          <Card tone="blue" shadow={false} class="p-5">
             <p class="font-semibold text-brand-navy">Gender: {child.gender}</p>
-          </div>
+          </Card>
         )
       }
       {
         child.dream && (
-          <div class="bg-pastel-pink rounded-card p-5">
+          <Card tone="pink" shadow={false} class="p-5">
             <p class="font-semibold text-brand-navy">Dream: {child.dream}</p>
-          </div>
+          </Card>
         )
       }
     </div>

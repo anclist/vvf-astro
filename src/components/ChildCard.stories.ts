@@ -9,7 +9,7 @@ const jose: ChildItem = {
 }
 
 export default {
-  title: 'Components/ChildCard',
+  title: 'Molecules/ChildCard',
   component: ChildCard,
 }
 

@@ -1,5 +1,7 @@
 ---
 import type { CtaLink } from './Hero.astro'
+import Button from './Button.astro'
+import Eyebrow from './Eyebrow.astro'
 
 export interface Props {
   eyebrow?: string
@@ -17,7 +19,7 @@ const { eyebrow, heading, body, bullets, imageUrl, imageAlt = '', cta } = Astro.
 <section class="bg-brand-navy text-white rounded-card overflow-hidden">
   <div class="grid md:grid-cols-2 gap-8 items-center p-8 md:p-12">
     <div>
-      {eyebrow && <p class="text-eyebrow uppercase text-brand-sky font-semibold">{eyebrow}</p>}
+      {eyebrow && <Eyebrow color="sky">{eyebrow}</Eyebrow>}
       <h2 class="mt-2 text-display-sm md:text-display-md">{heading}</h2>
       {body && <p class="mt-4 text-white/85">{body}</p>}
       {
@@ -34,9 +36,9 @@ const { eyebrow, heading, body, bullets, imageUrl, imageAlt = '', cta } = Astro.
       }
       {
         cta && (
-          <a href={cta.href} class="mt-6 inline-block rounded-pill bg-brand-sky text-white px-6 py-3 font-medium">
+          <Button href={cta.href} variant="primary-sky" size="lg" class="mt-6 inline-block">
             {cta.label}
-          </a>
+          </Button>
         )
       }
     </div>

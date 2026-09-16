@@ -13,3 +13,9 @@ emdash-env.d.ts
 
 # Design reference asset (large binary, kept local only)
 /Victoria Venezuela Foundation.pdf
+
+# Test tooling output (generated)
+/storybook-static/
+/test-results/
+/playwright-report/
+/blob-report/

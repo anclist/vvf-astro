@@ -1,7 +1,7 @@
 import PastelCard from './PastelCard.astro'
 
 export default {
-  title: 'Components/PastelCard',
+  title: 'Molecules/PastelCard',
   component: PastelCard,
 }
 

@@ -1,0 +1,32 @@
+---
+title: Architecture & Content Model
+description: How content flows from EmDash into pages and components.
+---
+
+## One adapter rule
+
+All content is read through one adapter, [`src/lib/content/index.ts`](https://github.com/anclist/vvf-astro/blob/main/src/lib/content/index.ts), which wraps EmDash's `getEmDashCollection`/`getEmDashEntry` and returns the normalized shapes defined in [`src/lib/content/types.ts`](https://github.com/anclist/vvf-astro/blob/main/src/lib/content/types.ts). Pages and components never query EmDash directly — this keeps the CMS shape swappable and the rendering layer simple.
+
+Normalized types: `EventItem`, `ChildItem`, `TeamMemberItem`, `PostItem`, `Sponsor`, `SponsorshipPackage`, `AuctionItem`, `Faq`, `CampaignUpdate`, `CampaignSettings`, `NavItem`.
+
+## `seed/seed.json` is the schema source of truth
+
+`seed/seed.json` defines both the EmDash collection **schema** (fields, types, validation) and the starter **content**, and is version-controlled. It has four top-level sections: `version`, `meta`, `collections` (schema), and `content` (seed data), plus `menus` (nav structure).
+
+Collections: `events`, `children` (sponsorship profiles), `team_members`, `posts` (blog), `sponsors`, `sponsorship_packages`, `auction_items`, `faqs`, `campaign_updates`, `campaign_settings` (singleton).
+
+To change the schema or seed content: edit `seed/seed.json`, then `npm run seed` (or just restart the dev server — EmDash auto-seeds on boot if the database doesn't have content yet).
+
+The `children` collection has a `published` flag gated behind "safeguarding sign-off" per its field description — unpublished child profiles should never render on the public site regardless of what other data exists on the record.
+
+## Storage
+
+Local dev uses SQLite (`data.db`) and local disk (`/uploads`) for EmDash. **Production deploy target (hosting, database, media storage) has not been decided yet** — don't assume a target when working on deploy-related changes; check with the team.
+
+## Nav menus
+
+`seed/seed.json`'s `menus.primary` defines the site's primary navigation (About us, Our work, Get involved submenu, News). [`scripts/verify-menu-links.mjs`](https://github.com/anclist/vvf-astro/blob/main/scripts/verify-menu-links.mjs) cross-checks every menu URL against real `src/pages` routes and is gated in CI (`verify-menu-links.yml`) — a broken nav link fails the build before merge.
+
+## Design history
+
+The `openspec/` directory holds archived change proposals and specs from earlier in the project (including the CMS choice evolution before landing on EmDash). It's not kept in sync with the current implementation, but it's worth a look for the "why" behind older decisions.

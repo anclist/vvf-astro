@@ -1,0 +1,18 @@
+---
+export interface Props {
+  color?: 'navy' | 'sky' | 'ink'
+  class?: string
+}
+
+const { color = 'navy', class: className = '' } = Astro.props as Props
+
+const colors = {
+  navy: 'text-brand-navy/70',
+  sky: 'text-brand-sky',
+  ink: 'text-ink-500',
+}
+---
+
+<p class={`text-eyebrow uppercase font-semibold ${colors[color]} ${className}`}>
+  <slot />
+</p>

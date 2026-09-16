@@ -1,0 +1,10 @@
+---
+export interface Props {
+  class?: string
+  [key: string]: any
+}
+
+const { class: className = '', ...rest } = Astro.props as Props
+---
+
+<input class={`rounded-pill px-4 py-2 border ${className}`} {...rest} />

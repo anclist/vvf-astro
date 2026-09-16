@@ -1,7 +1,7 @@
 import AnnouncementBanner from './AnnouncementBanner.astro'
 
 export default {
-  title: 'Components/AnnouncementBanner',
+  title: 'Atoms/AnnouncementBanner',
   component: AnnouncementBanner,
 }
 

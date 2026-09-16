@@ -4,7 +4,7 @@ import EmployerMatchWidget from './EmployerMatchWidget.astro'
 // falls back to the disabled placeholder when unset, which is the correct
 // default to story (no external Double the Donation script load in dev).
 export default {
-  title: 'Components/EmployerMatchWidget',
+  title: 'Molecules/EmployerMatchWidget',
   component: EmployerMatchWidget,
 }
 

@@ -1,6 +1,7 @@
 ---
 import { generalDonationUrl } from '../lib/donorbox'
 import { getPrimaryMenu } from '../lib/content'
+import Button from './Button.astro'
 
 const donateUrl = generalDonationUrl()
 const desktopItems = await getPrimaryMenu()
@@ -45,15 +46,8 @@ const mobileItems = desktopItems.flatMap((item) => (item.children?.length ? item
     </nav>
 
     <div class="hidden md:flex items-center gap-3">
-      <a
-        href="/contact"
-        class="rounded-pill border border-brand-sky text-brand-sky px-5 py-2 font-medium hover:bg-brand-sky/10"
-      >
-        Contact Us
-      </a>
-      <a href={donateUrl} class="rounded-pill bg-brand-sky text-white px-5 py-2 font-medium hover:bg-brand-sky-dark">
-        Donate
-      </a>
+      <Button href="/contact" variant="outline-sky">Contact Us</Button>
+      <Button href={donateUrl} variant="primary-sky">Donate</Button>
     </div>
 
     <button
@@ -75,8 +69,8 @@ const mobileItems = desktopItems.flatMap((item) => (item.children?.length ? item
   >
     {mobileItems.map((item) => <li><a class="block py-2" href={item.url}>{item.label}</a></li>)}
     <li class="pt-2 flex gap-2">
-      <a href="/contact" class="rounded-pill border border-brand-sky text-brand-sky px-4 py-2 flex-1 text-center">Contact Us</a>
-      <a href={donateUrl} class="rounded-pill bg-brand-sky text-white px-4 py-2 flex-1 text-center">Donate</a>
+      <Button href="/contact" variant="outline-sky" size="sm" class="flex-1 text-center">Contact Us</Button>
+      <Button href={donateUrl} variant="primary-sky" size="sm" class="flex-1 text-center">Donate</Button>
     </li>
   </ul>
 </header>

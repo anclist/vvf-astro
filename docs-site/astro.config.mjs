@@ -1,0 +1,21 @@
+import { defineConfig } from 'astro/config';
+import starlight from '@astrojs/starlight';
+
+export default defineConfig({
+  site: 'https://anclist.github.io',
+  base: '/vvf-astro',
+  integrations: [
+    starlight({
+      title: 'VVF Astro Docs',
+      social: [
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/anclist/vvf-astro' },
+      ],
+      sidebar: [
+        { label: 'Getting Started', link: '/getting-started/' },
+        { label: 'Architecture & Content Model', link: '/architecture/' },
+        { label: 'Component Library', link: '/components/' },
+        { label: 'Testing & CI', link: '/testing-and-ci/' },
+      ],
+    }),
+  ],
+});

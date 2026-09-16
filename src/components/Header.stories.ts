@@ -5,7 +5,7 @@ import Header from './Header.astro'
 // swapped for a static fixture via the Vite alias in .storybook/main.ts
 // (see .storybook/mocks/content.ts) so this never needs a live DB.
 export default {
-  title: 'Components/Header',
+  title: 'Organisms/Header',
   component: Header,
 }
 

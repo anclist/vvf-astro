@@ -1,4 +1,7 @@
 ---
+import Button from './Button.astro'
+import Card from './Card.astro'
+
 export interface TestimonialItem {
   title: string
   body?: string
@@ -13,18 +16,18 @@ const { items } = Astro.props as Props
 
 <div data-testimonial-carousel>
   <div class="flex items-center gap-3">
-    <button type="button" class="shrink-0 rounded-full border p-2" data-prev aria-label="Previous story">‹</button>
+    <Button variant="icon" data-prev aria-label="Previous story">‹</Button>
     <div class="flex-1 flex gap-4 overflow-x-hidden scroll-smooth" data-track>
       {
         items.map((item) => (
-          <div class="shrink-0 w-full sm:w-[320px] bg-white rounded-card p-5 shadow-sm">
+          <Card class="shrink-0 w-full sm:w-[320px] p-5">
             <p class="font-display text-brand-navy">{item.title}</p>
             {item.body && <p class="mt-2 text-sm text-ink-700">{item.body}</p>}
-          </div>
+          </Card>
         ))
       }
     </div>
-    <button type="button" class="shrink-0 rounded-full border p-2" data-next aria-label="Next story">›</button>
+    <Button variant="icon" data-next aria-label="Next story">›</Button>
   </div>
   <div class="mt-4 flex justify-center gap-2" data-dots>
     {items.map((_, i) => <span class="w-2 h-2 rounded-full bg-gray-300" data-dot={i} />)}
