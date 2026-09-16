@@ -1,3 +1,4 @@
+import { expect } from 'storybook/test'
 import FaqAccordion from './FaqAccordion.astro'
 import type { Faq } from '../lib/content/types'
 
@@ -26,4 +27,16 @@ export default {
 
 export const Default = {
   args: { faqs },
+  play: async ({ canvasElement }) => {
+    const details = canvasElement.querySelector('details') as HTMLDetailsElement
+    const summary = details.querySelector('summary') as HTMLElement
+
+    expect(details.open).toBe(false)
+
+    summary.click()
+    expect(details.open).toBe(true)
+
+    summary.click()
+    expect(details.open).toBe(false)
+  },
 }

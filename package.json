@@ -9,7 +9,13 @@
     "seed": "emdash seed seed/seed.json",
     "verify-menu": "node scripts/verify-menu-links.mjs",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test": "npm run test:unit && npm run test:storybook && npm run test:e2e",
+    "test:unit": "vitest run",
+    "test:watch": "vitest",
+    "test:storybook": "start-server-and-test storybook http://localhost:6006 \"test-storybook --url http://localhost:6006\"",
+    "pretest:e2e": "rm -f data.db data.db-shm data.db-wal && npm run seed && npm run build",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@astrojs/node": "^11.1.5",
@@ -20,12 +26,15 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@storybook-astro/framework": "^1.12.0",
     "@storybook/addon-docs": "^10.6.0",
     "@storybook/builder-vite": "^10.6.0",
+    "@storybook/test-runner": "^0.24.5",
     "@types/node": "^22.20.2",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.24",
+    "start-server-and-test": "^3.0.12",
     "storybook": "^10.6.0",
     "tailwindcss": "^3.4.0",
     "vitest": "^4.1.10"

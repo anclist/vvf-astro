@@ -1,3 +1,4 @@
+import { expect, within } from 'storybook/test'
 import TestimonialCarousel from './TestimonialCarousel.astro'
 import type { TestimonialItem } from './TestimonialCarousel.astro'
 
@@ -23,4 +24,16 @@ export default {
 
 export const Default = {
   args: { items },
+  // @storybook-astro/framework mounts story markup via innerHTML, so the
+  // client <script> driving next/prev never executes here — only the
+  // static render is checked. Scroll math is covered by
+  // src/lib/carousel.test.ts.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    canvas.getByRole('button', { name: 'Next story' })
+    canvas.getByRole('button', { name: 'Previous story' })
+    const dots = canvasElement.querySelectorAll('[data-dot]')
+
+    expect(dots).toHaveLength(items.length)
+  },
 }
