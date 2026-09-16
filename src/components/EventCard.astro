@@ -1,0 +1,46 @@
+---
+import type { EventItem } from '../lib/content/types'
+import { isUpcoming } from '../lib/content'
+
+export interface Props {
+  event: EventItem
+}
+
+const { event } = Astro.props as Props
+const upcoming = isUpcoming(event)
+const dateLabel = new Date(event.startDate).toLocaleDateString(undefined, {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+})
+---
+
+<article class={`bg-white rounded-card overflow-hidden shadow-sm ${upcoming ? '' : 'opacity-90'}`}>
+  <div class="h-40 bg-gray-200">
+    {
+      event.imageUrl ? (
+        <img src={event.imageUrl} alt={event.title} class="w-full h-full object-cover" />
+      ) : (
+        <div class="w-full h-full flex items-center justify-center text-ink-500 text-sm">Image here</div>
+      )
+    }
+  </div>
+  <div class="p-5">
+    <div class="flex items-center gap-2">
+      <h3 class="font-display text-lg text-brand-navy">{event.title}</h3>
+      <span class="text-xs bg-gray-100 rounded-pill px-2 py-1 text-ink-500">{dateLabel}</span>
+    </div>
+    <p class="text-sm text-ink-500 mt-1">{event.location}</p>
+    {event.description && <p class="mt-2 text-ink-700 text-sm">{event.description}</p>}
+    {
+      upcoming && (
+        <a
+          href={`/events/${event.slug}`}
+          class="mt-4 inline-block rounded-pill border border-brand-sky text-brand-sky px-5 py-2 text-sm font-medium"
+        >
+          Learn More
+        </a>
+      )
+    }
+  </div>
+</article>

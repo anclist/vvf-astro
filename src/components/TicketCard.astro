@@ -1,0 +1,29 @@
+---
+export interface Props {
+  tierName: string
+  price: string
+  features?: string[]
+  href: string
+  tone?: 'yellow' | 'blue'
+}
+
+const { tierName, price, features = [], href, tone = 'blue' } = Astro.props as Props
+const toneClass = tone === 'yellow' ? 'bg-pastel-yellow' : 'bg-pastel-blue'
+---
+
+<div class={`${toneClass} rounded-card p-6`}>
+  <p class="font-display text-lg text-brand-navy">{tierName}</p>
+  <p class="mt-1 text-display-sm text-brand-navy">{price}</p>
+  {
+    features.length > 0 && (
+      <ul class="mt-4 space-y-1 text-sm text-ink-700">
+        {features.map((f) => (
+          <li>• {f}</li>
+        ))}
+      </ul>
+    )
+  }
+  <a href={href} class="mt-4 inline-block rounded-pill bg-brand-navy text-white px-5 py-2 text-sm font-medium">
+    Buy Now
+  </a>
+</div>

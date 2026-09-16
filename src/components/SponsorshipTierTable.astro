@@ -1,0 +1,64 @@
+---
+import type { SponsorshipPackage } from '../lib/content/types'
+
+export interface Props {
+  tiers: SponsorshipPackage[]
+  ctaHrefFor?: (tier: SponsorshipPackage) => string
+}
+
+const { tiers, ctaHrefFor } = Astro.props as Props
+const sorted = [...tiers].sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+const gridColsClass =
+  sorted.length >= 4 ? 'md:grid-cols-4' : sorted.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'
+---
+
+<div class={`grid grid-cols-1 ${gridColsClass} gap-4 overflow-x-auto`}>
+  {
+    sorted.map((tier) => (
+      <div class="bg-white rounded-card p-6 shadow-sm flex flex-col">
+        <p class="font-display text-lg text-brand-navy">{tier.tierName}</p>
+        {tier.price && <p class="text-ink-500">{tier.price}</p>}
+
+        {tier.recognitionBenefits && tier.recognitionBenefits.length > 0 && (
+          <div class="mt-4">
+            <p class="text-eyebrow uppercase text-ink-500 font-semibold">Recognition</p>
+            <ul class="mt-2 space-y-1 text-sm text-ink-700">
+              {tier.recognitionBenefits.map((b) => (
+                <li>✓ {b}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {tier.activityBenefits && tier.activityBenefits.length > 0 && (
+          <div class="mt-4">
+            <p class="text-eyebrow uppercase text-ink-500 font-semibold">Activities</p>
+            <ul class="mt-2 space-y-1 text-sm text-ink-700">
+              {tier.activityBenefits.map((b) => (
+                <li>✓ {b}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {tier.promotionalBenefits && tier.promotionalBenefits.length > 0 && (
+          <div class="mt-4">
+            <p class="text-eyebrow uppercase text-ink-500 font-semibold">Promotional items</p>
+            <ul class="mt-2 space-y-1 text-sm text-ink-700">
+              {tier.promotionalBenefits.map((b) => (
+                <li>✓ {b}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <a
+          href={ctaHrefFor ? ctaHrefFor(tier) : '#'}
+          class="mt-6 self-start rounded-pill bg-brand-sky text-white px-5 py-2 text-sm font-medium"
+        >
+          Buy Now
+        </a>
+      </div>
+    ))
+  }
+</div>

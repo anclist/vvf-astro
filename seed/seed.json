@@ -1,0 +1,1322 @@
+{
+  "version": "1",
+  "meta": {
+    "name": "Victoria Venezuela Foundation",
+    "description": "Content schema + seed data ported from the Sanity schemaTypes/fixtures that preceded EmDash."
+  },
+  "collections": [
+    {
+      "slug": "events",
+      "label": "Events",
+      "labelSingular": "Event",
+      "routable": false,
+      "titleField": "title",
+      "dateField": "start_date",
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "start_date",
+          "label": "Start date",
+          "type": "datetime",
+          "required": true,
+          "indexed": true
+        },
+        {
+          "slug": "location",
+          "label": "Location",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "description",
+          "label": "Description",
+          "type": "text"
+        },
+        {
+          "slug": "image",
+          "label": "Hero image",
+          "type": "image"
+        },
+        {
+          "slug": "category",
+          "label": "Category",
+          "type": "select",
+          "validation": {
+            "options": [
+              "golf-tournament",
+              "community",
+              "awareness"
+            ]
+          }
+        },
+        {
+          "slug": "donorbox_event_id",
+          "label": "Donorbox event ID",
+          "type": "string"
+        },
+        {
+          "slug": "sponsor_packages",
+          "label": "Sponsor packages (overrides site-wide packages)",
+          "type": "json"
+        },
+        {
+          "slug": "auction_items",
+          "label": "Silent auction items",
+          "type": "json"
+        },
+        {
+          "slug": "sponsors",
+          "label": "Event sponsors",
+          "type": "json"
+        }
+      ]
+    },
+    {
+      "slug": "children",
+      "label": "Sponsored children",
+      "labelSingular": "Sponsored child",
+      "routable": false,
+      "titleField": "display_name",
+      "fields": [
+        {
+          "slug": "display_name",
+          "label": "Display name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "private_full_name",
+          "label": "Private full name (internal only, never rendered)",
+          "type": "string"
+        },
+        {
+          "slug": "age",
+          "label": "Age",
+          "type": "integer",
+          "required": true,
+          "validation": {
+            "min": 0,
+            "max": 18
+          }
+        },
+        {
+          "slug": "birthday",
+          "label": "Birthday",
+          "type": "datetime"
+        },
+        {
+          "slug": "gender",
+          "label": "Gender",
+          "type": "select",
+          "validation": {
+            "options": [
+              "Male",
+              "Female"
+            ]
+          }
+        },
+        {
+          "slug": "dream",
+          "label": "Dream (\"When they grow up...\")",
+          "type": "text"
+        },
+        {
+          "slug": "photo",
+          "label": "Photo",
+          "type": "image"
+        },
+        {
+          "slug": "published",
+          "label": "Published (requires safeguarding sign-off)",
+          "type": "boolean",
+          "defaultValue": false,
+          "indexed": true
+        },
+        {
+          "slug": "donorbox_sponsorship_ref",
+          "label": "Donorbox sponsorship reference",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "slug": "team_members",
+      "label": "Team members",
+      "labelSingular": "Team member",
+      "routable": false,
+      "titleField": "name",
+      "fields": [
+        {
+          "slug": "name",
+          "label": "Name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "role",
+          "label": "Role / title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "tier",
+          "label": "Tier",
+          "type": "select",
+          "required": true,
+          "indexed": true,
+          "validation": {
+            "options": [
+              "board",
+              "leader",
+              "staff"
+            ]
+          }
+        },
+        {
+          "slug": "photo",
+          "label": "Photo",
+          "type": "image"
+        },
+        {
+          "slug": "bio",
+          "label": "Short bio",
+          "type": "text"
+        },
+        {
+          "slug": "long_bio",
+          "label": "Long bio (detail page)",
+          "type": "text"
+        },
+        {
+          "slug": "quote",
+          "label": "Quote",
+          "type": "text"
+        },
+        {
+          "slug": "since",
+          "label": "Since",
+          "type": "string"
+        },
+        {
+          "slug": "from",
+          "label": "From",
+          "type": "string"
+        },
+        {
+          "slug": "based_in",
+          "label": "Based in",
+          "type": "string"
+        },
+        {
+          "slug": "background",
+          "label": "Background facts",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              {
+                "slug": "label",
+                "label": "Label",
+                "type": "string"
+              },
+              {
+                "slug": "value",
+                "label": "Value",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        {
+          "slug": "social_links",
+          "label": "Social links",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              {
+                "slug": "platform",
+                "label": "Platform",
+                "type": "select",
+                "options": [
+                  "linkedin",
+                  "x",
+                  "website"
+                ]
+              },
+              {
+                "slug": "url",
+                "label": "URL",
+                "type": "url"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "slug": "posts",
+      "label": "Blog posts",
+      "labelSingular": "Blog post",
+      "routable": false,
+      "titleField": "title",
+      "dateField": "published_on",
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "author",
+          "label": "Author",
+          "type": "string"
+        },
+        {
+          "slug": "published_on",
+          "label": "Published date",
+          "type": "datetime",
+          "required": true,
+          "indexed": true
+        },
+        {
+          "slug": "updated_on",
+          "label": "Last updated",
+          "type": "datetime"
+        },
+        {
+          "slug": "category",
+          "label": "Category",
+          "type": "select",
+          "required": true,
+          "indexed": true,
+          "validation": {
+            "options": [
+              "Stories",
+              "Events",
+              "Financials",
+              "News"
+            ]
+          }
+        },
+        {
+          "slug": "excerpt",
+          "label": "Excerpt",
+          "type": "text",
+          "validation": {
+            "maxLength": 280
+          }
+        },
+        {
+          "slug": "image",
+          "label": "Hero image",
+          "type": "image"
+        },
+        {
+          "slug": "body",
+          "label": "Body",
+          "type": "text"
+        },
+        {
+          "slug": "featured",
+          "label": "Featured",
+          "type": "boolean",
+          "defaultValue": false,
+          "indexed": true
+        }
+      ]
+    },
+    {
+      "slug": "sponsors",
+      "label": "Sponsors / partners",
+      "labelSingular": "Sponsor",
+      "routable": false,
+      "titleField": "name",
+      "fields": [
+        {
+          "slug": "name",
+          "label": "Name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "logo",
+          "label": "Logo",
+          "type": "image",
+          "required": true
+        },
+        {
+          "slug": "tier",
+          "label": "Sponsorship tier held",
+          "type": "reference",
+          "options": {
+            "collection": "sponsorship-packages"
+          }
+        },
+        {
+          "slug": "website",
+          "label": "Website",
+          "type": "url"
+        }
+      ]
+    },
+    {
+      "slug": "sponsorship_packages",
+      "label": "Sponsorship packages",
+      "labelSingular": "Sponsorship package",
+      "routable": false,
+      "titleField": "tier_name",
+      "fields": [
+        {
+          "slug": "scope",
+          "label": "Scope (general site-wide tiers vs. an event-specific override)",
+          "type": "select",
+          "required": true,
+          "indexed": true,
+          "validation": {
+            "options": [
+              "general",
+              "event"
+            ]
+          }
+        },
+        {
+          "slug": "tier_name",
+          "label": "Tier name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "price",
+          "label": "Price",
+          "type": "string"
+        },
+        {
+          "slug": "recognition_benefits",
+          "label": "Recognition benefits",
+          "type": "json"
+        },
+        {
+          "slug": "activity_benefits",
+          "label": "Activity benefits",
+          "type": "json"
+        },
+        {
+          "slug": "promotional_benefits",
+          "label": "Promotional item benefits",
+          "type": "json"
+        },
+        {
+          "slug": "order",
+          "label": "Comparison table order",
+          "type": "integer",
+          "indexed": true
+        }
+      ]
+    },
+    {
+      "slug": "auction_items",
+      "label": "Silent auction items",
+      "labelSingular": "Silent auction item",
+      "routable": false,
+      "titleField": "name",
+      "fields": [
+        {
+          "slug": "name",
+          "label": "Name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "image",
+          "label": "Image",
+          "type": "image"
+        },
+        {
+          "slug": "estimated_value",
+          "label": "Estimated value",
+          "type": "string"
+        },
+        {
+          "slug": "bid_url",
+          "label": "Bid / donate link",
+          "type": "url"
+        }
+      ]
+    },
+    {
+      "slug": "faqs",
+      "label": "FAQs",
+      "labelSingular": "FAQ",
+      "routable": false,
+      "titleField": "question",
+      "fields": [
+        {
+          "slug": "question",
+          "label": "Question",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "answer",
+          "label": "Answer",
+          "type": "text",
+          "required": true
+        },
+        {
+          "slug": "category",
+          "label": "Category",
+          "type": "select",
+          "required": true,
+          "indexed": true,
+          "validation": {
+            "options": [
+              "sponsorship",
+              "donation",
+              "tournament",
+              "general"
+            ]
+          }
+        },
+        {
+          "slug": "order",
+          "label": "Order",
+          "type": "integer",
+          "indexed": true
+        }
+      ]
+    },
+    {
+      "slug": "campaign_updates",
+      "label": "Campaign updates",
+      "labelSingular": "Campaign update",
+      "routable": false,
+      "titleField": "title",
+      "dateField": "date",
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "date",
+          "label": "Date",
+          "type": "datetime",
+          "required": true,
+          "indexed": true
+        },
+        {
+          "slug": "image",
+          "label": "Image",
+          "type": "image"
+        },
+        {
+          "slug": "video_url",
+          "label": "Video URL",
+          "type": "url"
+        },
+        {
+          "slug": "body",
+          "label": "Body",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "slug": "campaign_settings",
+      "label": "Earthquake relief campaign settings",
+      "labelSingular": "Campaign settings",
+      "routable": false,
+      "hidden": false,
+      "fields": [
+        {
+          "slug": "active",
+          "label": "Campaign is active (hides the site-wide banner when off)",
+          "type": "boolean",
+          "defaultValue": true
+        },
+        {
+          "slug": "banner_text",
+          "label": "Banner text",
+          "type": "string"
+        },
+        {
+          "slug": "donorbox_campaign_id",
+          "label": "Donorbox campaign ID",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "content": {
+    "sponsorship_packages": [
+      {
+        "id": "sp-trustee",
+        "status": "published",
+        "data": {
+          "tier_name": "Trustee",
+          "price": "$2,500/year",
+          "order": 1,
+          "recognition_benefits": [
+            "Inclusion in the Annual Report",
+            "Visibility in branding (website, email campaigns, social media, and events)",
+            "Board Donor Plaque"
+          ],
+          "activity_benefits": [
+            "Participation in the annual gala speech",
+            "Participation in the annual mission trip",
+            "Participation in the annual Board review"
+          ],
+          "promotional_benefits": [
+            "(5) Polo shirts with the foundation's logo",
+            "(25) Foundation stickers"
+          ],
+          "scope": "general"
+        }
+      },
+      {
+        "id": "sp-leader",
+        "status": "published",
+        "data": {
+          "tier_name": "Leader",
+          "price": "$1,000/year",
+          "order": 2,
+          "recognition_benefits": [
+            "Inclusion in the Annual Report",
+            "Visibility in branding (website, social media)"
+          ],
+          "activity_benefits": [
+            "Participation in the annual mission trip"
+          ],
+          "promotional_benefits": [
+            "(3) Polo shirts with the foundation's logo",
+            "(10) Foundation stickers"
+          ],
+          "scope": "general"
+        }
+      },
+      {
+        "id": "sp-advisor",
+        "status": "published",
+        "data": {
+          "tier_name": "Advisor",
+          "price": "$500/year",
+          "order": 3,
+          "recognition_benefits": [
+            "Inclusion in the Annual Report"
+          ],
+          "activity_benefits": [],
+          "promotional_benefits": [
+            "(1) Polo shirt with the foundation's logo"
+          ],
+          "scope": "general"
+        }
+      },
+      {
+        "id": "sp-friend",
+        "status": "published",
+        "data": {
+          "tier_name": "Friend",
+          "price": "$250/year",
+          "order": 4,
+          "recognition_benefits": [
+            "Listed as a supporter on the website"
+          ],
+          "activity_benefits": [],
+          "promotional_benefits": [
+            "(5) Foundation stickers"
+          ],
+          "scope": "general"
+        }
+      },
+      {
+        "id": "sp-golf-platinum",
+        "status": "published",
+        "data": {
+          "tier_name": "Platinum Sponsor",
+          "price": "$10,000",
+          "order": 1,
+          "scope": "event"
+        }
+      },
+      {
+        "id": "sp-golf-diamond",
+        "status": "published",
+        "data": {
+          "tier_name": "Diamond Sponsor",
+          "price": "$5,000",
+          "order": 2,
+          "scope": "event"
+        }
+      },
+      {
+        "id": "sp-golf-gold",
+        "status": "published",
+        "data": {
+          "tier_name": "Gold Sponsor",
+          "price": "$2,500",
+          "order": 3,
+          "scope": "event"
+        }
+      }
+    ],
+    "auction_items": [
+      {
+        "id": "ai-vacation",
+        "status": "published",
+        "data": {
+          "name": "7-Day Summer Vacation",
+          "estimated_value": "$5,000"
+        }
+      },
+      {
+        "id": "ai-flight-sim",
+        "status": "published",
+        "data": {
+          "name": "Flight Simulator Experience",
+          "estimated_value": "$1,500"
+        }
+      },
+      {
+        "id": "ai-fishing-trip",
+        "status": "published",
+        "data": {
+          "name": "Fishing Trip",
+          "estimated_value": "$3,200"
+        }
+      }
+    ],
+    "sponsors": [
+      {
+        "id": "sponsor-trusty-handyman",
+        "status": "published",
+        "data": {
+          "name": "The Trusty Handyman"
+        }
+      },
+      {
+        "id": "sponsor-paula-inc",
+        "status": "published",
+        "data": {
+          "name": "Paula Inc."
+        }
+      },
+      {
+        "id": "sponsor-lgt",
+        "status": "published",
+        "data": {
+          "name": "LGT — Leading Gate Technologies"
+        }
+      },
+      {
+        "id": "sponsor-topgolf",
+        "status": "published",
+        "data": {
+          "name": "TopGolf"
+        }
+      },
+      {
+        "id": "sponsor-microsoft",
+        "status": "published",
+        "data": {
+          "name": "Microsoft"
+        }
+      }
+    ],
+    "events": [
+      {
+        "id": "event-golf-tournament-2026",
+        "status": "published",
+        "data": {
+          "title": "Golf Tournament",
+          "start_date": "2026-11-14T00:00:00.000Z",
+          "location": "Weston, FL",
+          "description": "Our flagship event bringing together partners and supporters for a day on the course with purpose.",
+          "category": "golf-tournament",
+          "donorbox_event_id": "937157",
+          "sponsor_packages": [
+            "$ref:sp-golf-platinum",
+            "$ref:sp-golf-diamond",
+            "$ref:sp-golf-gold"
+          ],
+          "auction_items": [
+            "$ref:ai-vacation",
+            "$ref:ai-flight-sim",
+            "$ref:ai-fishing-trip"
+          ],
+          "sponsors": [
+            "$ref:sponsor-trusty-handyman",
+            "$ref:sponsor-paula-inc",
+            "$ref:sponsor-lgt",
+            "$ref:sponsor-topgolf",
+            "$ref:sponsor-microsoft"
+          ]
+        },
+        "slug": "golf-tournament-2026"
+      },
+      {
+        "id": "event-fiesta-day-little-haiti",
+        "status": "published",
+        "data": {
+          "title": "Fiesta Day in Little Haiti",
+          "start_date": "2026-08-16T00:00:00.000Z",
+          "location": "Little Haiti",
+          "description": "A vibrant celebration of culture and heritage.",
+          "category": "community"
+        },
+        "slug": "fiesta-day-little-haiti"
+      }
+    ],
+    "children": [
+      {
+        "id": "child-leiker",
+        "status": "published",
+        "data": {
+          "display_name": "Leiker Francisco Abreu Guaimaro",
+          "age": 4,
+          "birthday": "2019-08-09T00:00:00.000Z",
+          "gender": "Male",
+          "dream": "When he grows up, he wants to be a professional chef",
+          "published": true
+        },
+        "slug": "leiker-francisco-abreu-guaimaro"
+      },
+      {
+        "id": "child-kleiberzon",
+        "status": "published",
+        "data": {
+          "display_name": "Kleiberzon Joshua Ramirez",
+          "age": 9,
+          "gender": "Male",
+          "published": true
+        },
+        "slug": "kleiberzon-joshua-ramirez"
+      },
+      {
+        "id": "child-sharismar",
+        "status": "published",
+        "data": {
+          "display_name": "Sharismar Carolina Hernández Rodríguez",
+          "age": 12,
+          "gender": "Female",
+          "published": true
+        },
+        "slug": "sharismar-carolina-hernandez-rodriguez"
+      },
+      {
+        "id": "child-sebastian",
+        "status": "published",
+        "data": {
+          "display_name": "Sebastian Franquiz",
+          "age": 16,
+          "gender": "Male",
+          "published": true
+        },
+        "slug": "sebastian-franquiz"
+      }
+    ],
+    "team_members": [
+      {
+        "id": "team-randy-lander-board",
+        "status": "published",
+        "data": {
+          "name": "Randy Lander",
+          "role": "Chairman",
+          "tier": "board",
+          "quote": "Randy is passionate about serving God and about servant leadership.",
+          "since": "2022",
+          "from": "Caracas, VE",
+          "based_in": "Miami, FL",
+          "bio": "Randy is the Chairman and Founder of Victoria Venezuela Foundation. He has held numerous board and leadership roles with nonprofits serving children and education.",
+          "long_bio": "Those include Special Olympics in Washington, the Society of Manufacturing Engineers, and the Boeing Employee Community Fund (ECF) Japan. Randy is also an Executive Director at The Boeing Company, based in Miami, Florida.\n\nWith 20 years in the aviation industry, he is the sales executive responsible for the commercial relationship and growth strategy for airline customers across Latin America and the Caribbean. Before this assignment he lived and worked with customers and suppliers in Asia, Europe, and the Middle East, leading teams in Engineering, Supplier Management, and Commercial Aviation Services.\n\nHe is a native of Caracas, Venezuela. He is married to Helen, they have two children, and he enjoys traveling with his family.",
+          "background": [
+            {
+              "label": "Executive Director",
+              "value": "The Boeing Company"
+            },
+            {
+              "label": "MBA",
+              "value": "Mechanical & Manufacturing Engineering"
+            },
+            {
+              "label": "Board service",
+              "value": "Special Olympics · SME · Boeing ECF"
+            }
+          ],
+          "social_links": [
+            {
+              "platform": "linkedin",
+              "url": "#"
+            }
+          ]
+        },
+        "slug": "randy-lander"
+      },
+      {
+        "id": "team-helen-bello-board",
+        "status": "published",
+        "data": {
+          "name": "Helen Bello",
+          "role": "Vice Chair",
+          "tier": "board"
+        },
+        "slug": "helen-bello"
+      },
+      {
+        "id": "team-jose-guerrero-board",
+        "status": "published",
+        "data": {
+          "name": "Pastor Jose Guerrero",
+          "role": "Board Member",
+          "tier": "board"
+        },
+        "slug": "pastor-jose-guerrero"
+      },
+      {
+        "id": "team-randy-lander-leader",
+        "status": "published",
+        "data": {
+          "name": "Randy Lander",
+          "role": "Founder & Chairman",
+          "tier": "leader",
+          "bio": "A Caracas native who led global campaigns at The Boeing Company for 20 years before founding the Foundation."
+        },
+        "slug": "randy-lander-leader"
+      },
+      {
+        "id": "team-helen-bello-leader",
+        "status": "published",
+        "data": {
+          "name": "Helen Bello",
+          "role": "Co-Founder & Chief Financial Officer",
+          "tier": "leader",
+          "bio": "Field Marketing Manager at Microsoft, formerly eight years at The Boeing Company. MBA, University of Washington."
+        },
+        "slug": "helen-bello-leader"
+      },
+      {
+        "id": "team-jose-guerrero-leader",
+        "status": "published",
+        "data": {
+          "name": "Pastor Jose Guerrero",
+          "role": "EVP, Programs Venezuela",
+          "tier": "leader"
+        },
+        "slug": "pastor-jose-guerrero-leader"
+      },
+      {
+        "id": "team-charmiant-corado",
+        "status": "published",
+        "data": {
+          "name": "Charmiant Corado",
+          "role": "EVP, Marketing & Communications",
+          "tier": "leader",
+          "bio": "Emmy-award-winning communications professional with more than ten years in media and digital content, formerly with WarnerMedia and Gray Media."
+        },
+        "slug": "charmiant-corado"
+      },
+      {
+        "id": "team-juan-tomasini",
+        "status": "published",
+        "data": {
+          "name": "Juan Tomasini",
+          "role": "EVP, Business Development",
+          "tier": "leader"
+        },
+        "slug": "juan-tomasini"
+      },
+      {
+        "id": "team-enrique-flores",
+        "status": "published",
+        "data": {
+          "name": "Enrique Flores",
+          "role": "EVP, Digital Transformation",
+          "tier": "leader",
+          "bio": "Founder and CEO of Paula Inc. Responsible for the Foundation's branding and digital presence."
+        },
+        "slug": "enrique-flores"
+      },
+      {
+        "id": "team-dorceia-watkins",
+        "status": "published",
+        "data": {
+          "name": "Dorceia Watkins",
+          "role": "Senior Director, Grants Management",
+          "tier": "staff"
+        },
+        "slug": "dorceia-watkins"
+      },
+      {
+        "id": "team-arivana-rangel",
+        "status": "published",
+        "data": {
+          "name": "Arivana Rangel",
+          "role": "Senior Director, Business Development and Alliances",
+          "tier": "staff"
+        },
+        "slug": "arivana-rangel"
+      },
+      {
+        "id": "team-archange-merveille",
+        "status": "published",
+        "data": {
+          "name": "Archange Merveille",
+          "role": "Director, Business Development",
+          "tier": "staff"
+        },
+        "slug": "archange-merveille"
+      },
+      {
+        "id": "team-jorge-tomasini",
+        "status": "published",
+        "data": {
+          "name": "Jorge Tomasini",
+          "role": "Senior Director, Business Development",
+          "tier": "staff"
+        },
+        "slug": "jorge-tomasini"
+      },
+      {
+        "id": "team-gabriel-leal",
+        "status": "published",
+        "data": {
+          "name": "Gabriel Leal",
+          "role": "Director, Business Development",
+          "tier": "staff"
+        },
+        "slug": "gabriel-leal"
+      },
+      {
+        "id": "team-lili-sosa",
+        "status": "published",
+        "data": {
+          "name": "Lili Sosa",
+          "role": "Director, Business Development",
+          "tier": "staff"
+        },
+        "slug": "lili-sosa"
+      },
+      {
+        "id": "team-johnny-yetaco",
+        "status": "published",
+        "data": {
+          "name": "Johnny Yetaco",
+          "role": "VP Communications, USA",
+          "tier": "staff"
+        },
+        "slug": "johnny-yetaco"
+      },
+      {
+        "id": "team-luis-arias",
+        "status": "published",
+        "data": {
+          "name": "Luis Arias",
+          "role": "VP Communications, Venezuela",
+          "tier": "staff"
+        },
+        "slug": "luis-arias"
+      },
+      {
+        "id": "team-ximena-sosa",
+        "status": "published",
+        "data": {
+          "name": "Ximena Sosa",
+          "role": "Senior Director, Digital Strategy",
+          "tier": "staff"
+        },
+        "slug": "ximena-sosa"
+      },
+      {
+        "id": "team-elimar-ugueto",
+        "status": "published",
+        "data": {
+          "name": "Elimar Ugueto",
+          "role": "Senior Director, Marketing",
+          "tier": "staff"
+        },
+        "slug": "elimar-ugueto"
+      },
+      {
+        "id": "team-vanessa-sanchez",
+        "status": "published",
+        "data": {
+          "name": "Vanessa Sanchez",
+          "role": "Senior Director, Communications",
+          "tier": "staff"
+        },
+        "slug": "vanessa-sanchez"
+      },
+      {
+        "id": "team-jose-luis-guerrero",
+        "status": "published",
+        "data": {
+          "name": "Jose Luis Guerrero",
+          "role": "Communications, Miranda",
+          "tier": "staff"
+        },
+        "slug": "jose-luis-guerrero"
+      },
+      {
+        "id": "team-laumin-gomez",
+        "status": "published",
+        "data": {
+          "name": "Laumin Gomez",
+          "role": "Communications, Bolivar",
+          "tier": "staff"
+        },
+        "slug": "laumin-gomez"
+      },
+      {
+        "id": "team-adrian-roman",
+        "status": "published",
+        "data": {
+          "name": "Adrian Roman",
+          "role": "Content Marketing",
+          "tier": "staff"
+        },
+        "slug": "adrian-roman"
+      },
+      {
+        "id": "team-richard-navas",
+        "status": "published",
+        "data": {
+          "name": "Richard Navas",
+          "role": "Content Marketing",
+          "tier": "staff"
+        },
+        "slug": "richard-navas"
+      },
+      {
+        "id": "team-antonio-manzanares",
+        "status": "published",
+        "data": {
+          "name": "Antonio Manzanares",
+          "role": "Senior Developer",
+          "tier": "staff"
+        },
+        "slug": "antonio-manzanares"
+      },
+      {
+        "id": "team-jean-paul-beaumont",
+        "status": "published",
+        "data": {
+          "name": "Jean Paul Beaumont",
+          "role": "Webmaster, Content",
+          "tier": "staff"
+        },
+        "slug": "jean-paul-beaumont"
+      },
+      {
+        "id": "team-santiago-suarez",
+        "status": "published",
+        "data": {
+          "name": "Santiago Suarez",
+          "role": "Senior Designer",
+          "tier": "staff"
+        },
+        "slug": "santiago-suarez"
+      },
+      {
+        "id": "team-eduardo-szabo",
+        "status": "published",
+        "data": {
+          "name": "Eduardo Szabo",
+          "role": "Senior Developer",
+          "tier": "staff"
+        },
+        "slug": "eduardo-szabo"
+      },
+      {
+        "id": "team-david-cardenas",
+        "status": "published",
+        "data": {
+          "name": "David Cardenas",
+          "role": "Programs, Bolivar",
+          "tier": "staff"
+        },
+        "slug": "david-cardenas"
+      },
+      {
+        "id": "team-pastora-narvis",
+        "status": "published",
+        "data": {
+          "name": "Pastora Narvis",
+          "role": "Director",
+          "tier": "staff"
+        },
+        "slug": "pastora-narvis"
+      },
+      {
+        "id": "team-francelys-uribe",
+        "status": "published",
+        "data": {
+          "name": "Francelys Uribe",
+          "role": "Director, Outreach Coordinator",
+          "tier": "staff"
+        },
+        "slug": "francelys-uribe"
+      },
+      {
+        "id": "team-pastora-avila",
+        "status": "published",
+        "data": {
+          "name": "Pastora Avila",
+          "role": "Director",
+          "tier": "staff"
+        },
+        "slug": "pastora-avila"
+      },
+      {
+        "id": "team-isaias-mota",
+        "status": "published",
+        "data": {
+          "name": "Isaias Mota",
+          "role": "Programs, Aragua",
+          "tier": "staff"
+        },
+        "slug": "isaias-mota"
+      }
+    ],
+    "posts": [
+      {
+        "id": "post-sponsor-directly",
+        "status": "published",
+        "data": {
+          "title": "How to sponsor a child directly",
+          "author": "Victoria Venezuela Foundation",
+          "published_on": "2026-03-19T00:00:00.000Z",
+          "category": "Stories",
+          "excerpt": "A step-by-step look at how monthly sponsorship reaches a specific child.",
+          "body": "Full article body goes here once the foundation supplies final copy.",
+          "featured": true
+        },
+        "slug": "how-to-sponsor-a-child-directly"
+      },
+      {
+        "id": "post-golf-2025-recap",
+        "status": "published",
+        "data": {
+          "title": "2025 Golf Tournament recap",
+          "author": "Victoria Venezuela Foundation",
+          "published_on": "2026-05-18T00:00:00.000Z",
+          "category": "Events",
+          "excerpt": "Highlights from our flagship fundraising event and this year's sponsors.",
+          "featured": true
+        },
+        "slug": "golf-tournament-2025-recap"
+      },
+      {
+        "id": "post-fiscal-2025-transparency",
+        "status": "published",
+        "data": {
+          "title": "Fiscal 2025 transparency report",
+          "author": "Victoria Venezuela Foundation",
+          "published_on": "2026-07-17T00:00:00.000Z",
+          "category": "Financials",
+          "excerpt": "95% of funds went directly to programs in fiscal 2025.",
+          "featured": true
+        },
+        "slug": "fiscal-2025-transparency-report"
+      }
+    ],
+    "faqs": [
+      {
+        "id": "faq-sponsorship-cost",
+        "status": "published",
+        "data": {
+          "question": "How much does sponsorship cost?",
+          "answer": "Sponsorship starts at $25 per month. You choose the amount that fits your budget. Your gifts fund the meals, medical care and education programs that reach every child in our care.",
+          "category": "sponsorship",
+          "order": 1
+        }
+      },
+      {
+        "id": "faq-where-money-goes",
+        "status": "published",
+        "data": {
+          "question": "Where does my money go?",
+          "answer": "Your sponsorship funds provide weekly meals, quarterly medical checkups, school supplies and uniforms, and faith-based teaching. In fiscal 2025, 95% of funds went directly to programs.",
+          "category": "sponsorship",
+          "order": 2
+        }
+      },
+      {
+        "id": "faq-write-to-child",
+        "status": "published",
+        "data": {
+          "question": "Can I write to my sponsored child?",
+          "answer": "Yes. Your child will receive your letters and drawings, and they will write back to you.",
+          "category": "sponsorship",
+          "order": 3
+        }
+      },
+      {
+        "id": "faq-tax-deductible",
+        "status": "published",
+        "data": {
+          "question": "Are donations tax-deductible?",
+          "answer": "Yes. Victoria Venezuela Foundation is a 501(c)(3) nonprofit organization. All donations are tax-deductible to the fullest extent allowed by law.",
+          "category": "donation",
+          "order": 1
+        }
+      },
+      {
+        "id": "faq-cancel-recurring",
+        "status": "published",
+        "data": {
+          "question": "Can I cancel recurring gifts?",
+          "answer": "Yes. You can change or cancel your monthly gift anytime, no questions asked.",
+          "category": "donation",
+          "order": 2
+        }
+      },
+      {
+        "id": "faq-tournament-format",
+        "status": "published",
+        "data": {
+          "question": "What is the format of the tournament?",
+          "answer": "A scramble format to make it fun and accessible for all skill levels.",
+          "category": "tournament",
+          "order": 1
+        }
+      },
+      {
+        "id": "faq-contact",
+        "status": "published",
+        "data": {
+          "question": "How do I get in touch with the foundation?",
+          "answer": "Email info@victoriavenezuelafoundation.org or use the contact form on this page. We respond within two business days.",
+          "category": "general",
+          "order": 1
+        }
+      }
+    ],
+    "campaign_updates": [
+      {
+        "id": "campaign-update-praying-colombia",
+        "status": "published",
+        "data": {
+          "title": "Praying for Colombia",
+          "date": "2026-09-10T00:00:00.000Z"
+        }
+      }
+    ],
+    "campaign_settings": [
+      {
+        "id": "campaign-settings-default",
+        "status": "published",
+        "data": {
+          "active": true,
+          "banner_text": "Earthquake relief: Venezuelan families need help now. See how you can give.",
+          "donorbox_campaign_id": "venezuela-earthquake-relief"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,72 @@
+---
+export interface Props {
+  defaultTopic?: string
+}
+
+const { defaultTopic } = Astro.props as Props
+
+const topics = [
+  { value: 'general', label: 'General inquiry' },
+  { value: 'donation-support', label: 'Donation support' },
+  { value: 'media-press', label: 'Media and press' },
+  { value: 'corporate-partnerships', label: 'Corporate partnerships' },
+]
+---
+
+<form class="grid gap-4" data-contact-form novalidate>
+  <div class="grid sm:grid-cols-2 gap-4">
+    <input required name="firstName" placeholder="First name" class="rounded-pill px-4 py-2 border" />
+    <input required name="lastName" placeholder="Last name" class="rounded-pill px-4 py-2 border" />
+  </div>
+  <div class="grid sm:grid-cols-2 gap-4">
+    <input required type="email" name="email" placeholder="Email" class="rounded-pill px-4 py-2 border" />
+    <input name="phone" placeholder="Phone number" class="rounded-pill px-4 py-2 border" />
+  </div>
+
+  <label class="text-sm text-ink-700">
+    What is this about?
+    <select name="topic" class="mt-1 w-full rounded-pill px-4 py-2 border" data-topic-select>
+      {topics.map((t) => (
+        <option value={t.value} selected={t.value === defaultTopic}>
+          {t.label}
+        </option>
+      ))}
+    </select>
+  </label>
+
+  <textarea name="message" required placeholder="Message" rows={5} class="rounded-2xl px-4 py-3 border"></textarea>
+
+  <label class="flex items-center gap-2 text-sm text-ink-700">
+    <input type="checkbox" required name="privacyConsent" data-privacy-checkbox />
+    I agree to the privacy policy
+  </label>
+
+  <button
+    type="submit"
+    class="justify-self-start rounded-pill bg-brand-sky text-white px-6 py-2 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+    data-submit
+    disabled
+  >
+    Send message
+  </button>
+</form>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('[data-contact-form]').forEach((form) => {
+    const checkbox = form.querySelector<HTMLInputElement>('[data-privacy-checkbox]')
+    const submit = form.querySelector<HTMLButtonElement>('[data-submit]')
+    if (!checkbox || !submit) return
+
+    const sync = () => {
+      submit.disabled = !checkbox.checked
+    }
+    checkbox.addEventListener('change', sync)
+    sync()
+
+    form.addEventListener('submit', (e) => {
+      if (!checkbox.checked) {
+        e.preventDefault()
+      }
+    })
+  })
+</script>

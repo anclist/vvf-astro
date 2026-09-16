@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+
+# EmDash local dev database + media storage (generated, not seed source)
+data.db*
+/uploads
+.emdash/
+emdash-env.d.ts
+
+# Design reference asset (large binary, kept local only)
+/Victoria Venezuela Foundation.pdf

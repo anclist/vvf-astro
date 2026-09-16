@@ -1,0 +1,25 @@
+---
+export interface Stat {
+  value: string
+  label: string
+  caption?: string
+}
+
+export interface Props {
+  stats: Stat[]
+}
+
+const { stats } = Astro.props as Props
+---
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+  {
+    stats.map((s) => (
+      <div class="bg-white rounded-card p-6 shadow-sm text-center">
+        <p class="text-stat font-display text-brand-navy">{s.value}</p>
+        <p class="mt-1 font-semibold text-brand-sky uppercase text-eyebrow">{s.label}</p>
+        {s.caption && <p class="mt-2 text-sm text-ink-500">{s.caption}</p>}
+      </div>
+    ))
+  }
+</div>

@@ -1,0 +1,25 @@
+---
+import type { Faq } from '../lib/content/types'
+
+export interface Props {
+  faqs: Faq[]
+}
+
+const { faqs } = Astro.props as Props
+---
+
+<div class="divide-y divide-gray-200">
+  {
+    faqs.map((faq) => (
+      <details class="group py-4">
+        <summary class="flex items-center justify-between cursor-pointer list-none font-semibold text-brand-navy">
+          {faq.question}
+          <span class="text-brand-sky group-open:rotate-180 transition-transform" aria-hidden="true">
+            ⌄
+          </span>
+        </summary>
+        <p class="mt-2 text-ink-700 text-sm">{faq.answer}</p>
+      </details>
+    ))
+  }
+</div>

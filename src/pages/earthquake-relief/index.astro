@@ -1,0 +1,148 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro'
+import { getCampaignUpdates, getCampaignSettings } from '../../lib/content'
+import { earthquakeReliefUrl } from '../../lib/donorbox'
+
+const updates = await getCampaignUpdates()
+const settings = await getCampaignSettings()
+const donateUrl = earthquakeReliefUrl()
+
+const responsePhases = [
+  { step: '01', label: 'Assessment', status: 'Completed', body: 'Identifying the hardest-hit communities and urgent needs.' },
+  { step: '02', label: 'Stabilization', status: 'In progress', body: 'Delivering food, medical supplies, and shelter.' },
+  { step: '03', label: 'Strengthening', status: 'Upcoming', body: 'Helping families restore stability and routine.' },
+  { step: '04', label: 'Sustainability', status: 'Upcoming', body: 'Supporting long-term recovery and resilience.' },
+]
+---
+
+<PageLayout title="Venezuela Earthquake Relief — Victoria Venezuela Foundation">
+  <section class="bg-brand-navy text-white">
+    <div class="container max-w-container mx-auto px-4 py-12 grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h1 class="text-display-lg">Venezuela Earthquake Relief</h1>
+        <p class="mt-3 text-white/85">
+          Back-to-back earthquakes have rattled Venezuela. Your gift delivers help now.
+        </p>
+        <a href={donateUrl} class="mt-6 inline-block rounded-pill bg-brand-sky text-white px-6 py-3 font-medium">
+          Donate Now
+        </a>
+      </div>
+      <div class="h-56 rounded-card bg-white/10 flex items-center justify-center text-white/60 text-sm">Image here</div>
+    </div>
+  </section>
+
+  <section class="container max-w-container mx-auto px-4 py-section-sm text-center">
+    <h2 class="text-display-sm">100% of proceeds go to earthquake relief.</h2>
+    <a href={donateUrl} class="mt-4 inline-block rounded-pill border border-brand-sky text-brand-sky px-6 py-3 font-medium">
+      See ways to help
+    </a>
+  </section>
+
+  <section class="container max-w-container mx-auto px-4 pb-section-sm md:pb-section grid md:grid-cols-2 gap-8">
+    <div>
+      <p class="text-eyebrow uppercase text-brand-sky font-semibold">What happened</p>
+      <h2 class="mt-2 text-display-sm">On June 24, two powerful earthquakes struck northern Venezuela.</h2>
+      <p class="mt-3 text-ink-700">
+        Thousands of families lost the shelter they had, and many are now sleeping outside, cut off from clean water
+        and medical care.
+      </p>
+    </div>
+    <div class="grid grid-cols-2 gap-3">
+      {Array.from({ length: 4 }).map(() => (
+        <div class="h-24 bg-gray-200 rounded-card flex items-center justify-center text-ink-500 text-xs">Image here</div>
+      ))}
+    </div>
+  </section>
+
+  <section class="container max-w-container mx-auto px-4 pb-section-sm md:pb-section">
+    <p class="text-eyebrow uppercase text-brand-sky font-semibold text-center">Support Centers</p>
+    <h2 class="mt-2 text-display-sm text-center">We've established two support centers for displaced families.</h2>
+    <div class="mt-6 h-64 bg-gray-100 rounded-card flex items-center justify-center text-ink-500 text-sm">
+      Map of Venezuela support centers
+    </div>
+  </section>
+
+  <section class="container max-w-container mx-auto px-4 pb-section-sm md:pb-section">
+    <div class="bg-pastel-blue rounded-card p-8 text-center">
+      <h2 class="text-display-sm text-brand-navy">
+        100% of net proceeds benefit children and families displaced by the June 2026 earthquakes in Venezuela.
+      </h2>
+      <a href={donateUrl} class="mt-4 inline-block rounded-pill bg-brand-sky text-white px-6 py-3 font-medium">
+        See ways to help
+      </a>
+    </div>
+  </section>
+
+  <section class="container max-w-container mx-auto px-4 pb-section-sm md:pb-section">
+    <h2 class="text-display-md text-center">How to Help</h2>
+    <div class="mt-8 grid md:grid-cols-3 gap-6">
+      <div class="bg-pastel-yellow rounded-card p-6">
+        <p class="text-eyebrow uppercase font-semibold text-brand-navy/70">First</p>
+        <h3 class="mt-2 text-display-sm text-brand-navy">Pray</h3>
+        <p class="mt-2 text-ink-700">Join our team in daily prayer.</p>
+      </div>
+      <div class="bg-pastel-pink rounded-card p-6">
+        <p class="text-eyebrow uppercase font-semibold text-brand-navy/70">Second</p>
+        <h3 class="mt-2 text-display-sm text-brand-navy">Supplies</h3>
+        <p class="mt-2 text-ink-700">Drop off location and requested items available on request.</p>
+      </div>
+      <div class="bg-pastel-blue rounded-card p-6">
+        <p class="text-eyebrow uppercase font-semibold text-brand-navy/70">Third</p>
+        <h3 class="mt-2 text-display-sm text-brand-navy">Donate</h3>
+        <p class="mt-2 text-ink-700">Your financial gift allows VVF to respond quickly, effectively, and long term.</p>
+        <a href={donateUrl} class="mt-4 inline-block rounded-pill bg-brand-sky text-white px-4 py-2 text-sm font-medium">Donate</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="container max-w-container mx-auto px-4 pb-section-sm md:pb-section">
+    <div class="bg-white rounded-card shadow-sm p-8 max-w-lg mx-auto text-center">
+      <h2 class="text-display-sm">Keep up with our work on the ground.</h2>
+      <form class="mt-4 flex flex-col sm:flex-row gap-2">
+        <input type="text" placeholder="First name" class="flex-1 rounded-pill px-4 py-2 border" />
+        <input type="email" placeholder="Email" class="flex-1 rounded-pill px-4 py-2 border" />
+        <button type="submit" class="rounded-pill bg-brand-sky text-white px-5 py-2 font-medium">Submit</button>
+      </form>
+    </div>
+  </section>
+
+  <section class="container max-w-container mx-auto px-4 pb-section-sm md:pb-section">
+    <h2 class="text-display-md text-center">Our Response</h2>
+    <div class="mt-8 grid md:grid-cols-4 gap-4">
+      {
+        responsePhases.map((p) => (
+          <div class="bg-gray-50 rounded-card p-5">
+            <p class="text-display-sm text-brand-sky font-display">{p.step}</p>
+            <p class="mt-1 font-semibold text-brand-navy">{p.label}</p>
+            <p class="text-xs text-ink-500 uppercase">{p.status}</p>
+            <p class="mt-2 text-sm text-ink-700">{p.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="container max-w-container mx-auto px-4 pb-section-sm md:pb-section">
+    <h2 class="text-display-md text-center">Latest updates</h2>
+    <div class="mt-8 grid md:grid-cols-3 gap-6">
+      {
+        updates.map((u) => (
+          <div class="bg-white rounded-card overflow-hidden shadow-sm">
+            <div class="h-32 bg-gray-200 flex items-center justify-center text-ink-500 text-sm">
+              {u.imageUrl ? <img src={u.imageUrl} alt={u.title} class="w-full h-full object-cover" /> : 'Image here'}
+            </div>
+            <div class="p-4">
+              <p class="text-xs text-ink-500">{new Date(u.date).toLocaleDateString()}</p>
+              <p class="mt-1 font-display text-brand-navy">{u.title}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+    {!settings.active && (
+      <p class="mt-6 text-center text-sm text-ink-500">
+        This campaign's site-wide banner is currently off, but this page stays reachable.
+      </p>
+    )}
+  </section>
+</PageLayout>

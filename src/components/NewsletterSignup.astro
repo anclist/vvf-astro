@@ -1,0 +1,21 @@
+---
+export interface Props {
+  heading?: string
+}
+
+const { heading = 'Stay Connected' } = Astro.props as Props
+---
+
+<div class="bg-pastel-blue rounded-card p-8 text-center">
+  <p class="font-display text-2xl text-brand-navy">{heading}</p>
+  <form class="mt-4 flex flex-col sm:flex-row gap-2 max-w-md mx-auto" data-newsletter-form>
+    <input
+      type="email"
+      required
+      placeholder="Enter your email"
+      class="flex-1 rounded-pill px-4 py-2 border border-brand-navy/20"
+    />
+    <button type="submit" class="rounded-pill bg-brand-sky text-white px-6 py-2 font-medium">Subscribe</button>
+  </form>
+  <p class="mt-2 text-xs text-ink-500">We respect your privacy. Unsubscribe at any time.</p>
+</div>

@@ -1,0 +1,72 @@
+---
+import PageLayout from '../../../layouts/PageLayout.astro'
+import ChildCard from '../../../components/ChildCard.astro'
+import { getChildren } from '../../../lib/content'
+import { CHILD_AGE_RANGES } from '../../../lib/content/types'
+
+const children = await getChildren()
+---
+
+<PageLayout title="Meet the Children — Victoria Venezuela Foundation">
+  <section class="container max-w-container mx-auto px-4 py-10">
+    <h1 class="text-display-md text-center">Meet the children</h1>
+    <p class="mt-2 text-center text-ink-700">Find the child who needs you most</p>
+
+    <div class="mt-6 flex flex-wrap gap-4 justify-center" data-child-filters>
+      <input type="search" placeholder="Search by name" class="rounded-pill px-4 py-2 border" data-name-filter />
+      <div class="flex flex-wrap gap-2">
+        {
+          CHILD_AGE_RANGES.map((range) => (
+            <label class="flex items-center gap-1 text-sm rounded-pill border px-3 py-1 cursor-pointer">
+              <input type="checkbox" value={range} data-age-filter />
+              {range}
+            </label>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="mt-8 grid sm:grid-cols-2 md:grid-cols-4 gap-6" data-child-grid>
+      {
+        children.map((child) => (
+          <div data-child-card data-name={child.displayName.toLowerCase()} data-age={child.age}>
+            <ChildCard child={child} />
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="mt-6 text-center text-ink-500 text-sm" data-empty-state hidden>
+      No children match your filters.
+    </p>
+  </section>
+</PageLayout>
+
+<script>
+  import { childMatchesFilters } from '../../../lib/childFilter'
+  import type { ChildAgeRange } from '../../../lib/content/types'
+
+  const nameInput = document.querySelector<HTMLInputElement>('[data-name-filter]')
+  const ageInputs = Array.from(document.querySelectorAll<HTMLInputElement>('[data-age-filter]'))
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-child-card]'))
+  const emptyState = document.querySelector<HTMLElement>('[data-empty-state]')
+
+  function applyFilters() {
+    const nameQuery = nameInput?.value ?? ''
+    const ageRanges = ageInputs.filter((i) => i.checked).map((i) => i.value as ChildAgeRange)
+
+    let visibleCount = 0
+    cards.forEach((card) => {
+      const match = childMatchesFilters(
+        { displayName: card.dataset.name ?? '', age: Number(card.dataset.age) },
+        { nameQuery, ageRanges }
+      )
+      card.hidden = !match
+      if (match) visibleCount += 1
+    })
+    if (emptyState) emptyState.hidden = visibleCount > 0
+  }
+
+  nameInput?.addEventListener('input', applyFilters)
+  ageInputs.forEach((i) => i.addEventListener('change', applyFilters))
+</script>

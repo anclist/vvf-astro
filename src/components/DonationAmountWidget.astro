@@ -1,0 +1,119 @@
+---
+export interface Props {
+  presets?: number[]
+  currency?: string
+  defaultCadence?: 'one-time' | 'monthly'
+  sponsorTargetLabel?: string
+  actionUrl: string
+}
+
+const {
+  presets = [25, 50, 100, 250, 500, 1000],
+  currency = 'USD',
+  defaultCadence = 'one-time',
+  sponsorTargetLabel,
+  actionUrl,
+} = Astro.props as Props
+---
+
+<div class="bg-white rounded-card p-6 shadow-sm" data-donation-widget>
+  <div class="flex rounded-pill bg-gray-100 p-1 w-fit">
+    <button
+      type="button"
+      class="rounded-pill px-4 py-1 text-sm font-medium"
+      data-cadence="one-time"
+      aria-pressed={defaultCadence === 'one-time'}
+    >
+      One time
+    </button>
+    <button
+      type="button"
+      class="rounded-pill px-4 py-1 text-sm font-medium"
+      data-cadence="monthly"
+      aria-pressed={defaultCadence === 'monthly'}
+    >
+      Monthly
+    </button>
+  </div>
+
+  <p class="mt-4 text-sm text-ink-500">{currency}</p>
+
+  <div class="mt-2 grid grid-cols-3 gap-2">
+    {
+      presets.map((p) => (
+        <button type="button" class="rounded-pill border px-3 py-2 text-sm font-medium" data-preset={p}>
+          {p} {currency}
+        </button>
+      ))
+    }
+  </div>
+
+  <input
+    type="number"
+    min="1"
+    placeholder={`Custom amount (${currency})`}
+    class="mt-3 w-full rounded-pill px-4 py-2 border"
+    data-custom-amount
+  />
+
+  {
+    sponsorTargetLabel && (
+      <p class="mt-4 text-sm text-ink-700">
+        Sponsoring: <span class="font-semibold">{sponsorTargetLabel}</span>
+      </p>
+    )
+  }
+
+  <a
+    href={actionUrl}
+    class="mt-6 block text-center rounded-pill bg-brand-sky text-white px-6 py-3 font-medium"
+    data-continue
+  >
+    Continue
+  </a>
+</div>
+
+<script>
+  import { selectPreset, setCustomValue, type AmountState } from '../lib/donationWidget'
+
+  document.querySelectorAll<HTMLElement>('[data-donation-widget]').forEach((widget) => {
+    const cadenceButtons = Array.from(widget.querySelectorAll<HTMLButtonElement>('[data-cadence]'))
+    const presetButtons = Array.from(widget.querySelectorAll<HTMLButtonElement>('[data-preset]'))
+    const customInput = widget.querySelector<HTMLInputElement>('[data-custom-amount]')
+
+    let state: AmountState = { activePreset: null, customValue: '' }
+
+    function render() {
+      presetButtons.forEach((b) => {
+        const active = Number(b.dataset.preset) === state.activePreset
+        b.classList.toggle('bg-brand-sky', active)
+        b.classList.toggle('text-white', active)
+        b.setAttribute('aria-pressed', String(active))
+      })
+      if (customInput && customInput.value !== state.customValue) customInput.value = state.customValue
+    }
+
+    cadenceButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        cadenceButtons.forEach((b) => {
+          const active = b === btn
+          b.setAttribute('aria-pressed', String(active))
+          b.classList.toggle('bg-brand-sky', active)
+          b.classList.toggle('text-white', active)
+        })
+      })
+    })
+
+    presetButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state = selectPreset(state, Number(btn.dataset.preset))
+        render()
+      })
+    })
+
+    customInput?.addEventListener('input', () => {
+      state = setCustomValue(state, customInput.value)
+      render()
+    })
+  })
+</script>

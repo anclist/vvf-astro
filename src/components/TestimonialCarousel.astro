@@ -1,0 +1,64 @@
+---
+export interface TestimonialItem {
+  title: string
+  body?: string
+}
+
+export interface Props {
+  items: TestimonialItem[]
+}
+
+const { items } = Astro.props as Props
+---
+
+<div data-testimonial-carousel>
+  <div class="flex items-center gap-3">
+    <button type="button" class="shrink-0 rounded-full border p-2" data-prev aria-label="Previous story">‹</button>
+    <div class="flex-1 flex gap-4 overflow-x-hidden scroll-smooth" data-track>
+      {
+        items.map((item) => (
+          <div class="shrink-0 w-full sm:w-[320px] bg-white rounded-card p-5 shadow-sm">
+            <p class="font-display text-brand-navy">{item.title}</p>
+            {item.body && <p class="mt-2 text-sm text-ink-700">{item.body}</p>}
+          </div>
+        ))
+      }
+    </div>
+    <button type="button" class="shrink-0 rounded-full border p-2" data-next aria-label="Next story">›</button>
+  </div>
+  <div class="mt-4 flex justify-center gap-2" data-dots>
+    {items.map((_, i) => <span class="w-2 h-2 rounded-full bg-gray-300" data-dot={i} />)}
+  </div>
+</div>
+
+<script>
+  import { nextScrollLeft, prevScrollLeft } from '../lib/carousel'
+
+  document.querySelectorAll<HTMLElement>('[data-testimonial-carousel]').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('[data-track]')
+    const next = root.querySelector<HTMLElement>('[data-next]')
+    const prev = root.querySelector<HTMLElement>('[data-prev]')
+    const dots = Array.from(root.querySelectorAll<HTMLElement>('[data-dot]'))
+    if (!track) return
+    const step = 340
+
+    function syncDots() {
+      const max = track!.scrollWidth - track!.clientWidth
+      const progress = max > 0 ? track!.scrollLeft / max : 0
+      const activeIndex = Math.round(progress * (dots.length - 1))
+      dots.forEach((dot, i) => dot.classList.toggle('bg-brand-sky', i === activeIndex))
+    }
+
+    next?.addEventListener('click', () => {
+      const max = track.scrollWidth - track.clientWidth
+      track.scrollLeft = nextScrollLeft(track.scrollLeft, max, step)
+      syncDots()
+    })
+    prev?.addEventListener('click', () => {
+      const max = track.scrollWidth - track.clientWidth
+      track.scrollLeft = prevScrollLeft(track.scrollLeft, max, step)
+      syncDots()
+    })
+    syncDots()
+  })
+</script>

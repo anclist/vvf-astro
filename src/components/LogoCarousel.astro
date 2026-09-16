@@ -1,0 +1,48 @@
+---
+export interface LogoItem {
+  name: string
+  logoUrl?: string
+  website?: string
+}
+
+export interface Props {
+  logos: LogoItem[]
+}
+
+const { logos } = Astro.props as Props
+---
+
+<div class="flex items-center gap-3" data-logo-carousel>
+  <button type="button" class="shrink-0 rounded-full border p-2" data-prev aria-label="Previous logos">‹</button>
+  <div class="flex-1 flex gap-8 overflow-x-hidden scroll-smooth" data-track>
+    {
+      logos.map((logo) => (
+        <div class="shrink-0 flex items-center justify-center h-16 min-w-[140px] text-ink-500">
+          {logo.logoUrl ? <img src={logo.logoUrl} alt={logo.name} class="max-h-full" /> : <span>{logo.name}</span>}
+        </div>
+      ))
+    }
+  </div>
+  <button type="button" class="shrink-0 rounded-full border p-2" data-next aria-label="Next logos">›</button>
+</div>
+
+<script>
+  import { nextScrollLeft, prevScrollLeft } from '../lib/carousel'
+
+  document.querySelectorAll<HTMLElement>('[data-logo-carousel]').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('[data-track]')
+    const next = root.querySelector<HTMLElement>('[data-next]')
+    const prev = root.querySelector<HTMLElement>('[data-prev]')
+    if (!track) return
+    const step = 220
+
+    next?.addEventListener('click', () => {
+      const max = track.scrollWidth - track.clientWidth
+      track.scrollLeft = nextScrollLeft(track.scrollLeft, max, step)
+    })
+    prev?.addEventListener('click', () => {
+      const max = track.scrollWidth - track.clientWidth
+      track.scrollLeft = prevScrollLeft(track.scrollLeft, max, step)
+    })
+  })
+</script>

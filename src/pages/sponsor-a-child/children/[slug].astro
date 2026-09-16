@@ -1,0 +1,26 @@
+---
+import PageLayout from '../../../layouts/PageLayout.astro'
+import ChildProfile from '../../../components/ChildProfile.astro'
+import { getChildBySlug } from '../../../lib/content'
+import { sponsorChildEmbedUrl } from '../../../lib/donorbox'
+
+const child = await getChildBySlug(Astro.params.slug!)
+if (!child) return new Response('Not found', { status: 404 })
+const embedUrl = sponsorChildEmbedUrl(child.slug)
+---
+
+<PageLayout title={`${child.displayName} — Sponsor a Child`}>
+  <ChildProfile child={child}>
+    <div slot="donation" class="bg-white rounded-card shadow-sm overflow-hidden">
+      <div class="bg-brand-sky text-white px-4 py-3 font-semibold">Elegir la cantidad</div>
+      <iframe
+        title={`Sponsor ${child.displayName} via Donorbox`}
+        src={embedUrl}
+        class="w-full"
+        height="640"
+        style="border:none;max-width:100%;"
+        loading="lazy"
+      />
+    </div>
+  </ChildProfile>
+</PageLayout>

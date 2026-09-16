@@ -1,0 +1,33 @@
+---
+// Double the Donation's real "Search 360" widget requires a public API key
+// from the foundation's own DTD account, which doesn't exist yet — same
+// category of external-account blocker as production content hosting (see
+// design.md). This renders DTD's real embed when DTD_PUBLIC_KEY is set,
+// and a clearly-labeled static placeholder otherwise, so the page never
+// pretends a real integration exists without one.
+const dtdPublicKey = import.meta.env?.DTD_PUBLIC_KEY ?? process.env.DTD_PUBLIC_KEY
+---
+
+{
+  dtdPublicKey ? (
+    <div id="matching-search-widget" data-public-key={dtdPublicKey} />
+  ) : (
+    <div class="max-w-md mx-auto" data-double-the-donation-widget data-configured="false">
+      <div class="flex gap-2">
+        <input type="search" placeholder="Search for company..." class="flex-1 rounded-pill px-4 py-2 border" disabled />
+        <button type="button" class="rounded-pill bg-brand-navy text-white px-5 py-2 font-medium" disabled>
+          Let's Check
+        </button>
+      </div>
+      <p class="mt-2 text-xs text-center text-ink-500">
+        All information provided by Double the Donation — pending the foundation's DTD account setup.
+      </p>
+    </div>
+  )
+}
+
+{
+  dtdPublicKey && (
+    <script src="https://doublethedonation.com/api/js/ui.js" defer />
+  )
+}

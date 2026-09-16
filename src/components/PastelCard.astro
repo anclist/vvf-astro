@@ -1,0 +1,39 @@
+---
+export interface CtaLink {
+  label: string
+  href: string
+}
+
+export interface Props {
+  tone: 'yellow' | 'pink' | 'blue'
+  eyebrow?: string
+  title: string
+  body?: string
+  cta?: CtaLink
+  icon?: 'nutrition' | 'medical' | 'education' | 'none'
+}
+
+const { tone, eyebrow, title, body, cta } = Astro.props as Props
+
+const toneClass = {
+  yellow: 'bg-pastel-yellow',
+  pink: 'bg-pastel-pink',
+  blue: 'bg-pastel-blue',
+}[tone]
+---
+
+<div class={`${toneClass} rounded-card p-6 flex flex-col h-full`}>
+  {eyebrow && <p class="text-eyebrow uppercase font-semibold text-brand-navy/70">{eyebrow}</p>}
+  <h3 class="mt-2 text-display-sm text-brand-navy">{title}</h3>
+  {body && <p class="mt-2 text-ink-700 flex-1">{body}</p>}
+  {
+    cta && (
+      <a
+        href={cta.href}
+        class="mt-4 self-start rounded-pill border border-brand-navy/30 text-brand-navy px-5 py-2 font-medium hover:bg-white/40"
+      >
+        {cta.label}
+      </a>
+    )
+  }
+</div>

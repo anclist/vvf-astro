@@ -1,0 +1,23 @@
+---
+export interface Props {
+  active: boolean
+  text?: string
+  href?: string
+}
+
+const { active, text, href = '/earthquake-relief' } = Astro.props as Props
+---
+
+{
+  active && (
+    <div class="bg-brand-sky text-white text-sm">
+      <a
+        href={href}
+        class="container max-w-container mx-auto px-4 py-2 flex items-center justify-center gap-2 hover:underline"
+      >
+        <span>{text ?? 'Earthquake relief: Venezuelan families need help now.'}</span>
+        <span class="font-semibold">See how you can give &rarr;</span>
+      </a>
+    </div>
+  )
+}

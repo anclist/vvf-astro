@@ -1,0 +1,77 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro'
+import ContactForm from '../../components/ContactForm.astro'
+import FaqAccordion from '../../components/FaqAccordion.astro'
+import { getFaqs } from '../../lib/content'
+
+const faqs = await getFaqs('general')
+
+const reachUsCards = [
+  { title: 'General inquiries', body: 'Questions about our mission, programs, or how we serve Venezuela.', topic: 'general', cta: 'Send a message' },
+  { title: 'Donation support', body: 'Questions about giving, sponsorship, or making an impact.', topic: 'donation-support', cta: 'Donate' },
+  { title: 'Media and press', body: 'Journalists, bloggers, and media outlets seeking interviews or resources.', topic: 'media-press', cta: 'Inquire' },
+  { title: 'Corporate partnerships', body: 'Companies that want to sponsor a program, match employee gifts, or bring their team on a mission trip.', topic: 'corporate-partnerships', cta: 'Learn More' },
+]
+---
+
+<PageLayout title="Contact Us — Victoria Venezuela Foundation">
+  <section class="bg-gray-100">
+    <div class="container max-w-container mx-auto px-4 py-12">
+      <div class="bg-white rounded-card shadow p-8 max-w-xl ml-auto">
+        <h1 class="text-display-md">Contact us</h1>
+        <p class="mt-3 text-ink-700">We'd love to hear from you. Reach out with questions, partnership opportunities, or to learn how you can make a difference in Venezuela.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container max-w-container mx-auto px-4 py-section-sm md:py-section">
+    <p class="text-eyebrow uppercase text-brand-sky font-semibold text-center">Ways to connect</p>
+    <h2 class="mt-2 text-display-md text-center">Multiple ways to reach us</h2>
+    <div class="mt-8 grid md:grid-cols-4 gap-4" data-reach-us-cards>
+      {
+        reachUsCards.map((card, i) => (
+          <div class={`rounded-card p-6 ${['bg-pastel-pink', 'bg-pastel-blue', 'bg-pastel-yellow', 'bg-white shadow-sm'][i % 4]}`}>
+            <h3 class="font-display text-lg text-brand-navy">{card.title}</h3>
+            <p class="mt-2 text-sm text-ink-700">{card.body}</p>
+            <a
+              href={`/contact?topic=${card.topic}#contact-form`}
+              class="mt-4 inline-block rounded-pill border border-brand-navy/30 text-brand-navy px-4 py-2 text-sm font-medium"
+              data-reach-us-link={card.topic}
+            >
+              {card.cta}
+            </a>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section id="contact-form" class="container max-w-container mx-auto px-4 pb-section-sm md:pb-section">
+    <div class="bg-pastel-blue rounded-card p-8 grid md:grid-cols-[1fr_1.2fr] gap-8">
+      <div>
+        <p class="text-eyebrow uppercase font-semibold text-brand-navy/70">Get in touch</p>
+        <h2 class="mt-2 text-display-sm text-brand-navy">Send us a message</h2>
+        <p class="mt-2 text-ink-700">Tell us your name, email, and how we can help you serve Venezuela's most vulnerable families.</p>
+        <p class="mt-4 text-sm text-ink-700">
+          <a href="mailto:info@victoriavenezuelafoundation.org" class="hover:underline">info@victoriavenezuelafoundation.org</a>
+        </p>
+        <p class="mt-4 text-sm font-semibold text-brand-navy">Business hours</p>
+        <p class="text-sm text-ink-700">Monday through Friday, 8:30 AM to 5:30 PM Eastern Time</p>
+      </div>
+      <ContactForm />
+    </div>
+  </section>
+
+  <section class="container max-w-container mx-auto px-4 pb-section-sm md:pb-section">
+    <h2 class="text-display-md text-center">Frequently asked questions</h2>
+    <div class="mt-8 max-w-2xl mx-auto">
+      <FaqAccordion faqs={faqs} />
+    </div>
+  </section>
+</PageLayout>
+
+<script>
+  const topicSelect = document.querySelector<HTMLSelectElement>('[data-topic-select]')
+  const topic = new URLSearchParams(window.location.search).get('topic')
+  if (topic && topicSelect) topicSelect.value = topic
+</script>
