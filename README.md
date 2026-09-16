@@ -27,6 +27,10 @@ npm run dev
 
 This starts the site at `http://localhost:4321` and the EmDash admin at `http://localhost:4321/_emdash/admin`.
 
+**Staff: content admin.** In any deployed environment, the same admin UI is available at `<site-url>/_emdash/admin` — it requires login (EmDash's built-in session auth; unauthenticated requests redirect to `/_emdash/admin/login`). The Dashboard lists every content collection with item counts; open a collection (e.g. Blog posts, Events, Static pages) from the left sidebar to see its individual entries and each one's draft/published/scheduled status.
+
+The `pages` collection lists every static route that isn't already covered by another collection (home, contact, privacy policy, etc.) and keeps itself in sync automatically on the first request after the server starts — no one adds entries by hand. One-time setup per environment: generate a personal access token via the admin UI's token/API settings (name it `static-page-sync`, scopes `content:read` + `content:write`) and set it as `EMDASH_SYNC_PAT` (see `.env.example`).
+
 On first run, EmDash creates a local `data.db` and seeds it from [`seed/seed.json`](seed/seed.json) — the site's content schema (collections + fields) and starter content, both version-controlled. `data.db`, `.emdash/`, and `/uploads` are local/generated and gitignored; nothing about them needs to be committed.
 
 ## Basecamp CLI
