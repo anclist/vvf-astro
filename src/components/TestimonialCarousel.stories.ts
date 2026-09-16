@@ -18,7 +18,7 @@ const items: TestimonialItem[] = [
 ]
 
 export default {
-  title: 'Components/TestimonialCarousel',
+  title: 'Molecules/TestimonialCarousel',
   component: TestimonialCarousel,
 }
 

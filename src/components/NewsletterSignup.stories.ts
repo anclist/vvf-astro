@@ -1,7 +1,7 @@
 import NewsletterSignup from './NewsletterSignup.astro'
 
 export default {
-  title: 'Components/NewsletterSignup',
+  title: 'Molecules/NewsletterSignup',
   component: NewsletterSignup,
 }
 

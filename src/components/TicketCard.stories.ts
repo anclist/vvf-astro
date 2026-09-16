@@ -1,7 +1,7 @@
 import TicketCard from './TicketCard.astro'
 
 export default {
-  title: 'Components/TicketCard',
+  title: 'Molecules/TicketCard',
   component: TicketCard,
 }
 

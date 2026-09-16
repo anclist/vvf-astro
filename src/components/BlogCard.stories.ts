@@ -10,7 +10,7 @@ const post: PostItem = {
 }
 
 export default {
-  title: 'Components/BlogCard',
+  title: 'Molecules/BlogCard',
   component: BlogCard,
 }
 

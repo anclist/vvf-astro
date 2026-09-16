@@ -2,7 +2,7 @@ import { expect, within } from 'storybook/test'
 import DonationAmountWidget from './DonationAmountWidget.astro'
 
 export default {
-  title: 'Components/DonationAmountWidget',
+  title: 'Molecules/DonationAmountWidget',
   component: DonationAmountWidget,
 }
 

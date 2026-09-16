@@ -1,4 +1,6 @@
 ---
+import Button from './Button.astro'
+
 export interface Props {
   tierName: string
   price: string
@@ -23,7 +25,7 @@ const toneClass = tone === 'yellow' ? 'bg-pastel-yellow' : 'bg-pastel-blue'
       </ul>
     )
   }
-  <a href={href} class="mt-4 inline-block rounded-pill bg-brand-navy text-white px-5 py-2 text-sm font-medium">
+  <Button href={href} variant="primary-navy" class="mt-4 inline-block text-sm">
     Buy Now
-  </a>
+  </Button>
 </div>

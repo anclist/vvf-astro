@@ -1,4 +1,8 @@
 ---
+import Button from './Button.astro'
+import TextField from './TextField.astro'
+import TextArea from './TextArea.astro'
+
 export interface Props {
   defaultTopic?: string
 }
@@ -15,12 +19,12 @@ const topics = [
 
 <form class="grid gap-4" data-contact-form novalidate>
   <div class="grid sm:grid-cols-2 gap-4">
-    <input required name="firstName" placeholder="First name" class="rounded-pill px-4 py-2 border" />
-    <input required name="lastName" placeholder="Last name" class="rounded-pill px-4 py-2 border" />
+    <TextField required name="firstName" placeholder="First name" />
+    <TextField required name="lastName" placeholder="Last name" />
   </div>
   <div class="grid sm:grid-cols-2 gap-4">
-    <input required type="email" name="email" placeholder="Email" class="rounded-pill px-4 py-2 border" />
-    <input name="phone" placeholder="Phone number" class="rounded-pill px-4 py-2 border" />
+    <TextField required type="email" name="email" placeholder="Email" />
+    <TextField name="phone" placeholder="Phone number" />
   </div>
 
   <label class="text-sm text-ink-700">
@@ -34,21 +38,16 @@ const topics = [
     </select>
   </label>
 
-  <textarea name="message" required placeholder="Message" rows={5} class="rounded-2xl px-4 py-3 border"></textarea>
+  <TextArea name="message" required placeholder="Message" rows={5} />
 
   <label class="flex items-center gap-2 text-sm text-ink-700">
     <input type="checkbox" required name="privacyConsent" data-privacy-checkbox />
     I agree to the privacy policy
   </label>
 
-  <button
-    type="submit"
-    class="justify-self-start rounded-pill bg-brand-sky text-white px-6 py-2 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-    data-submit
-    disabled
-  >
+  <Button type="submit" variant="primary-sky" size="lg" class="justify-self-start" data-submit disabled>
     Send message
-  </button>
+  </Button>
 </form>
 
 <script>

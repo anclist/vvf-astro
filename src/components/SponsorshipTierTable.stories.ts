@@ -26,7 +26,7 @@ const tiers: SponsorshipPackage[] = [
 ]
 
 export default {
-  title: 'Components/SponsorshipTierTable',
+  title: 'Molecules/SponsorshipTierTable',
   component: SponsorshipTierTable,
 }
 

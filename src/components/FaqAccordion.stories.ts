@@ -21,7 +21,7 @@ const faqs: Faq[] = [
 ]
 
 export default {
-  title: 'Components/FaqAccordion',
+  title: 'Molecules/FaqAccordion',
   component: FaqAccordion,
 }
 

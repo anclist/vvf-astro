@@ -1,4 +1,6 @@
 ---
+import Button from './Button.astro'
+
 export interface CtaLink {
   label: string
   href: string
@@ -37,17 +39,14 @@ const { imageUrl, imageAlt = '', heading, subtext, primaryCta, secondaryCta } = 
         (primaryCta || secondaryCta) && (
           <div class="mt-6 flex flex-wrap gap-3">
             {primaryCta && (
-              <a href={primaryCta.href} class="rounded-pill bg-brand-sky text-white px-6 py-3 font-medium">
+              <Button href={primaryCta.href} variant="primary-sky" size="lg">
                 {primaryCta.label}
-              </a>
+              </Button>
             )}
             {secondaryCta && (
-              <a
-                href={secondaryCta.href}
-                class="rounded-pill border border-brand-sky text-brand-sky px-6 py-3 font-medium"
-              >
+              <Button href={secondaryCta.href} variant="outline-sky" size="lg">
                 {secondaryCta.label}
-              </a>
+              </Button>
             )}
           </div>
         )

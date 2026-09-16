@@ -14,7 +14,7 @@ const maria: ChildItem = {
 }
 
 export default {
-  title: 'Components/ChildProfile',
+  title: 'Organisms/ChildProfile',
   component: ChildProfile,
 }
 

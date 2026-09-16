@@ -1,6 +1,9 @@
 ---
 import type { EventItem } from '../lib/content/types'
 import { isUpcoming } from '../lib/content'
+import Card from './Card.astro'
+import Button from './Button.astro'
+import Badge from './Badge.astro'
 
 export interface Props {
   event: EventItem
@@ -15,7 +18,7 @@ const dateLabel = new Date(event.startDate).toLocaleDateString(undefined, {
 })
 ---
 
-<article class={`bg-white rounded-card overflow-hidden shadow-sm ${upcoming ? '' : 'opacity-90'}`}>
+<Card as="article" overflowHidden class={upcoming ? '' : 'opacity-90'}>
   <div class="h-40 bg-gray-200">
     {
       event.imageUrl ? (
@@ -28,19 +31,16 @@ const dateLabel = new Date(event.startDate).toLocaleDateString(undefined, {
   <div class="p-5">
     <div class="flex items-center gap-2">
       <h3 class="font-display text-lg text-brand-navy">{event.title}</h3>
-      <span class="text-xs bg-gray-100 rounded-pill px-2 py-1 text-ink-500">{dateLabel}</span>
+      <Badge>{dateLabel}</Badge>
     </div>
     <p class="text-sm text-ink-500 mt-1">{event.location}</p>
     {event.description && <p class="mt-2 text-ink-700 text-sm">{event.description}</p>}
     {
       upcoming && (
-        <a
-          href={`/events/${event.slug}`}
-          class="mt-4 inline-block rounded-pill border border-brand-sky text-brand-sky px-5 py-2 text-sm font-medium"
-        >
+        <Button href={`/events/${event.slug}`} variant="outline-sky" class="mt-4 inline-block text-sm">
           Learn More
-        </a>
+        </Button>
       )
     }
   </div>
-</article>
+</Card>

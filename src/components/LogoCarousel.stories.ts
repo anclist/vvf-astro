@@ -12,7 +12,7 @@ const logos: LogoItem[] = [
 ]
 
 export default {
-  title: 'Components/LogoCarousel',
+  title: 'Molecules/LogoCarousel',
   component: LogoCarousel,
 }
 

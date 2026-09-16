@@ -1,0 +1,11 @@
+---
+export interface Props {
+  class?: string
+}
+
+const { class: className = '' } = Astro.props as Props
+---
+
+<span class={`text-xs bg-gray-100 rounded-pill px-2 py-1 text-ink-500 ${className}`}>
+  <slot />
+</span>

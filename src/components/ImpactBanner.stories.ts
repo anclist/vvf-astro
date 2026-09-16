@@ -1,7 +1,7 @@
 import ImpactBanner from './ImpactBanner.astro'
 
 export default {
-  title: 'Components/ImpactBanner',
+  title: 'Molecules/ImpactBanner',
   component: ImpactBanner,
 }
 

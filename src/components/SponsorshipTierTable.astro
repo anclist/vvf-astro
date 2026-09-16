@@ -1,5 +1,8 @@
 ---
 import type { SponsorshipPackage } from '../lib/content/types'
+import Card from './Card.astro'
+import Button from './Button.astro'
+import Eyebrow from './Eyebrow.astro'
 
 export interface Props {
   tiers: SponsorshipPackage[]
@@ -15,13 +18,13 @@ const gridColsClass =
 <div class={`grid grid-cols-1 ${gridColsClass} gap-4 overflow-x-auto`}>
   {
     sorted.map((tier) => (
-      <div class="bg-white rounded-card p-6 shadow-sm flex flex-col">
+      <Card class="p-6 flex flex-col">
         <p class="font-display text-lg text-brand-navy">{tier.tierName}</p>
         {tier.price && <p class="text-ink-500">{tier.price}</p>}
 
         {tier.recognitionBenefits && tier.recognitionBenefits.length > 0 && (
           <div class="mt-4">
-            <p class="text-eyebrow uppercase text-ink-500 font-semibold">Recognition</p>
+            <Eyebrow color="ink">Recognition</Eyebrow>
             <ul class="mt-2 space-y-1 text-sm text-ink-700">
               {tier.recognitionBenefits.map((b) => (
                 <li>✓ {b}</li>
@@ -32,7 +35,7 @@ const gridColsClass =
 
         {tier.activityBenefits && tier.activityBenefits.length > 0 && (
           <div class="mt-4">
-            <p class="text-eyebrow uppercase text-ink-500 font-semibold">Activities</p>
+            <Eyebrow color="ink">Activities</Eyebrow>
             <ul class="mt-2 space-y-1 text-sm text-ink-700">
               {tier.activityBenefits.map((b) => (
                 <li>✓ {b}</li>
@@ -43,7 +46,7 @@ const gridColsClass =
 
         {tier.promotionalBenefits && tier.promotionalBenefits.length > 0 && (
           <div class="mt-4">
-            <p class="text-eyebrow uppercase text-ink-500 font-semibold">Promotional items</p>
+            <Eyebrow color="ink">Promotional items</Eyebrow>
             <ul class="mt-2 space-y-1 text-sm text-ink-700">
               {tier.promotionalBenefits.map((b) => (
                 <li>✓ {b}</li>
@@ -52,13 +55,10 @@ const gridColsClass =
           </div>
         )}
 
-        <a
-          href={ctaHrefFor ? ctaHrefFor(tier) : '#'}
-          class="mt-6 self-start rounded-pill bg-brand-sky text-white px-5 py-2 text-sm font-medium"
-        >
+        <Button href={ctaHrefFor ? ctaHrefFor(tier) : '#'} variant="primary-sky" class="mt-6 self-start text-sm">
           Buy Now
-        </a>
-      </div>
+        </Button>
+      </Card>
     ))
   }
 </div>

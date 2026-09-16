@@ -1,5 +1,6 @@
 ---
 import type { PostItem } from '../lib/content/types'
+import Card from './Card.astro'
 
 export interface Props {
   post: PostItem
@@ -13,7 +14,7 @@ const dateLabel = new Date(post.publishedAt).toLocaleDateString(undefined, {
 })
 ---
 
-<article class="bg-white rounded-card overflow-hidden shadow-sm">
+<Card as="article" overflowHidden>
   <div class="h-40 bg-gray-200">
     {
       post.imageUrl ? (
@@ -31,4 +32,4 @@ const dateLabel = new Date(post.publishedAt).toLocaleDateString(undefined, {
       Learn More
     </a>
   </div>
-</article>
+</Card>

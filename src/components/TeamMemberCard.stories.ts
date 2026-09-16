@@ -2,7 +2,7 @@ import TeamMemberCard from './TeamMemberCard.astro'
 import type { TeamMemberItem } from '../lib/content/types'
 
 export default {
-  title: 'Components/TeamMemberCard',
+  title: 'Atoms/TeamMemberCard',
   component: TeamMemberCard,
 }
 

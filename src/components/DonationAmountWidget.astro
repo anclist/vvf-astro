@@ -1,4 +1,8 @@
 ---
+import Button from './Button.astro'
+import Card from './Card.astro'
+import TextField from './TextField.astro'
+
 export interface Props {
   presets?: number[]
   currency?: string
@@ -16,7 +20,7 @@ const {
 } = Astro.props as Props
 ---
 
-<div class="bg-white rounded-card p-6 shadow-sm" data-donation-widget>
+<Card class="p-6" data-donation-widget>
   <div class="flex rounded-pill bg-gray-100 p-1 w-fit">
     <button
       type="button"
@@ -48,11 +52,11 @@ const {
     }
   </div>
 
-  <input
+  <TextField
     type="number"
     min="1"
     placeholder={`Custom amount (${currency})`}
-    class="mt-3 w-full rounded-pill px-4 py-2 border"
+    class="mt-3 w-full"
     data-custom-amount
   />
 
@@ -64,14 +68,10 @@ const {
     )
   }
 
-  <a
-    href={actionUrl}
-    class="mt-6 block text-center rounded-pill bg-brand-sky text-white px-6 py-3 font-medium"
-    data-continue
-  >
+  <Button href={actionUrl} variant="primary-sky" size="lg" class="mt-6 block text-center" data-continue>
     Continue
-  </a>
-</div>
+  </Button>
+</Card>
 
 <script>
   import { selectPreset, setCustomValue, type AmountState } from '../lib/donationWidget'

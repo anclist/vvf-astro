@@ -1,5 +1,6 @@
 ---
 import type { ChildItem } from '../lib/content/types'
+import Eyebrow from './Eyebrow.astro'
 
 export interface Props {
   child: ChildItem
@@ -19,7 +20,7 @@ const { child } = Astro.props as Props
     }
   </div>
   <div class="p-4">
-    <p class="text-xs text-ink-500 uppercase">{child.age} years old</p>
+    <Eyebrow color="ink">{child.age} years old</Eyebrow>
     <p class="mt-1 font-display text-brand-navy">{child.displayName}</p>
   </div>
 </a>

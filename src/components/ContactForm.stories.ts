@@ -2,7 +2,7 @@ import { expect, within } from 'storybook/test'
 import ContactForm from './ContactForm.astro'
 
 export default {
-  title: 'Components/ContactForm',
+  title: 'Molecules/ContactForm',
   component: ContactForm,
 }
 

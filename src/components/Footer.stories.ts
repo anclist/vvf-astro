@@ -2,7 +2,7 @@ import Footer from './Footer.astro'
 
 // No props: fully static markup.
 export default {
-  title: 'Components/Footer',
+  title: 'Organisms/Footer',
   component: Footer,
 }
 

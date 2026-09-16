@@ -1,4 +1,8 @@
 ---
+import Button from './Button.astro'
+import Card from './Card.astro'
+import TextField from './TextField.astro'
+
 export interface Props {
   heading?: string
 }
@@ -6,16 +10,11 @@ export interface Props {
 const { heading = 'Stay Connected' } = Astro.props as Props
 ---
 
-<div class="bg-pastel-blue rounded-card p-8 text-center">
+<Card tone="blue" shadow={false} class="p-8 text-center">
   <p class="font-display text-2xl text-brand-navy">{heading}</p>
   <form class="mt-4 flex flex-col sm:flex-row gap-2 max-w-md mx-auto" data-newsletter-form>
-    <input
-      type="email"
-      required
-      placeholder="Enter your email"
-      class="flex-1 rounded-pill px-4 py-2 border border-brand-navy/20"
-    />
-    <button type="submit" class="rounded-pill bg-brand-sky text-white px-6 py-2 font-medium">Subscribe</button>
+    <TextField type="email" required placeholder="Enter your email" class="flex-1 border-brand-navy/20" />
+    <Button type="submit" variant="primary-sky" size="lg">Subscribe</Button>
   </form>
   <p class="mt-2 text-xs text-ink-500">We respect your privacy. Unsubscribe at any time.</p>
-</div>
+</Card>

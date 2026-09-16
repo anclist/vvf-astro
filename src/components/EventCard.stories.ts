@@ -2,7 +2,7 @@ import EventCard from './EventCard.astro'
 import type { EventItem } from '../lib/content/types'
 
 export default {
-  title: 'Components/EventCard',
+  title: 'Molecules/EventCard',
   component: EventCard,
 }
 

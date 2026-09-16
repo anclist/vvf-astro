@@ -8,7 +8,7 @@ const item: AuctionItem = {
 }
 
 export default {
-  title: 'Components/AuctionItemCard',
+  title: 'Molecules/AuctionItemCard',
   component: AuctionItemCard,
 }
 
