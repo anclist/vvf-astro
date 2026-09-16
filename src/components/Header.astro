@@ -1,7 +1,10 @@
 ---
 import { generalDonationUrl } from '../lib/donorbox'
+import { getPrimaryMenu } from '../lib/content'
 
 const donateUrl = generalDonationUrl()
+const desktopItems = await getPrimaryMenu()
+const mobileItems = desktopItems.flatMap((item) => (item.children?.length ? item.children : [item]))
 ---
 
 <header class="relative bg-white">
@@ -10,29 +13,34 @@ const donateUrl = generalDonationUrl()
 
     <nav class="hidden md:flex items-center gap-8">
       <ul class="flex items-center gap-8 text-ink-700 font-medium">
-        <li><a href="/our-team" class="hover:text-brand-sky">About us</a></li>
-        <li><a href="/sponsor-a-child" class="hover:text-brand-sky">Our work</a></li>
-        <li class="relative group">
-          <button
-            type="button"
-            class="flex items-center gap-1 hover:text-brand-sky"
-            aria-haspopup="true"
-            aria-expanded="false"
-            data-dropdown-trigger
-          >
-            Get involved
-            <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" /></svg>
-          </button>
-          <ul
-            data-dropdown-menu
-            class="hidden group-focus-within:block md:absolute left-0 top-full mt-2 min-w-[220px] bg-white rounded-card shadow-lg p-2 z-20"
-          >
-            <li><a href="/ways-to-give" class="block px-4 py-2 rounded-lg hover:bg-pastel-blue/40">Ways to Give</a></li>
-            <li><a href="/corporate-sponsorships" class="block px-4 py-2 rounded-lg hover:bg-pastel-blue/40">Corporate Sponsorships</a></li>
-            <li><a href="/events" class="block px-4 py-2 rounded-lg hover:bg-pastel-blue/40">Events</a></li>
-          </ul>
-        </li>
-        <li><a href="/blog" class="hover:text-brand-sky">News</a></li>
+        {
+          desktopItems.map((item) =>
+            item.children?.length ? (
+              <li class="relative group">
+                <button
+                  type="button"
+                  class="flex items-center gap-1 hover:text-brand-sky"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  data-dropdown-trigger
+                >
+                  {item.label}
+                  <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" /></svg>
+                </button>
+                <ul
+                  data-dropdown-menu
+                  class="hidden group-focus-within:block md:absolute left-0 top-full mt-2 min-w-[220px] bg-white rounded-card shadow-lg p-2 z-20"
+                >
+                  {item.children.map((child) => (
+                    <li><a href={child.url} class="block px-4 py-2 rounded-lg hover:bg-pastel-blue/40">{child.label}</a></li>
+                  ))}
+                </ul>
+              </li>
+            ) : (
+              <li><a href={item.url} class="hover:text-brand-sky">{item.label}</a></li>
+            )
+          )
+        }
       </ul>
     </nav>
 
@@ -65,12 +73,7 @@ const donateUrl = generalDonationUrl()
     data-mobile-menu
     class="hidden md:hidden flex-col gap-1 bg-white shadow-lg absolute inset-x-0 top-full p-4 text-ink-700 font-medium z-30"
   >
-    <li><a class="block py-2" href="/our-team">About us</a></li>
-    <li><a class="block py-2" href="/sponsor-a-child">Our work</a></li>
-    <li><a class="block py-2" href="/ways-to-give">Ways to Give</a></li>
-    <li><a class="block py-2" href="/corporate-sponsorships">Corporate Sponsorships</a></li>
-    <li><a class="block py-2" href="/events">Events</a></li>
-    <li><a class="block py-2" href="/blog">News</a></li>
+    {mobileItems.map((item) => <li><a class="block py-2" href={item.url}>{item.label}</a></li>)}
     <li class="pt-2 flex gap-2">
       <a href="/contact" class="rounded-pill border border-brand-sky text-brand-sky px-4 py-2 flex-1 text-center">Contact Us</a>
       <a href={donateUrl} class="rounded-pill bg-brand-sky text-white px-4 py-2 flex-1 text-center">Donate</a>

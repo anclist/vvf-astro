@@ -1318,5 +1318,50 @@
         }
       }
     ]
-  }
+  },
+  "menus": [
+    {
+      "name": "primary",
+      "label": "Primary Navigation",
+      "items": [
+        {
+          "type": "custom",
+          "label": "About us",
+          "url": "/our-team"
+        },
+        {
+          "type": "custom",
+          "label": "Our work",
+          "url": "/sponsor-a-child"
+        },
+        {
+          "type": "custom",
+          "label": "Get involved",
+          "children": [
+            {
+              "type": "custom",
+              "label": "Ways to Give",
+              "url": "/ways-to-give"
+            },
+            {
+              "type": "custom",
+              "label": "Corporate Sponsorships",
+              "url": "/corporate-sponsorships"
+            },
+            {
+              "type": "custom",
+              "label": "Events",
+              "url": "/events"
+            }
+          ],
+          "url": "#"
+        },
+        {
+          "type": "custom",
+          "label": "News",
+          "url": "/blog"
+        }
+      ]
+    }
+  ]
 }

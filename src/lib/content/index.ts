@@ -2,7 +2,7 @@
 // never through EmDash's query functions directly. Content lives in EmDash
 // (schema + seed data checked in at seed/seed.json, applied to the local
 // SQLite database via `npx emdash seed seed/seed.json`).
-import { getEmDashCollection, getEmDashEntry } from 'emdash'
+import { getEmDashCollection, getEmDashEntry, getMenu, type MenuItem } from 'emdash'
 import type {
   EventItem,
   ChildItem,
@@ -15,6 +15,7 @@ import type {
   SponsorshipPackage,
   AuctionItem,
   Sponsor,
+  NavItem,
 } from './types'
 
 interface EmDashImage {
@@ -257,4 +258,20 @@ export async function getCampaignSettings(): Promise<CampaignSettings> {
     bannerText: d.banner_text,
     donorboxCampaignId: d.donorbox_campaign_id,
   }
+}
+
+// --- Navigation -----------------------------------------------------------
+
+function toNavItem(item: MenuItem): NavItem {
+  return {
+    label: item.label,
+    url: item.url,
+    children: item.children.length > 0 ? item.children.map(toNavItem) : undefined,
+  }
+}
+
+export async function getPrimaryMenu(): Promise<NavItem[]> {
+  const menu = await getMenu('primary')
+  if (!menu) return []
+  return menu.items.map(toNavItem)
 }

@@ -102,6 +102,12 @@ export interface CampaignSettings {
   donorboxCampaignId?: string
 }
 
+export interface NavItem {
+  label: string
+  url: string
+  children?: NavItem[]
+}
+
 export const CHILD_AGE_RANGES = ['0-2', '3-5', '6-8', '9-11', '12-14', '15+'] as const
 export type ChildAgeRange = (typeof CHILD_AGE_RANGES)[number]
 
